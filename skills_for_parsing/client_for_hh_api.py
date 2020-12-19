@@ -51,8 +51,9 @@ with open('top_50_skills_from_python_request.txt', 'w', encoding='utf-8') as res
 По итогам работы программы выбираем несколько самых используемых скиллов, которые мы вытащили из ключевых навыков вакансий (key_skills)
 
 Будем использовать
-Skill : count 
+Skills
 
+hard:
 1. sql
 2. linux
 3. git
@@ -82,7 +83,7 @@ Skill : count
 27. ansible
 28. trello 
 
-soft
+soft:
 1. работа в команде 
 2. leadership skills
 
