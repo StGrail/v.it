@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#User's ignore
+/.vscode
+top_50_skills_from_python_request.txt
