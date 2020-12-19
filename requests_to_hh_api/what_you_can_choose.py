@@ -6,7 +6,7 @@ header = {'User-Agent': 'api-test-agent'}
 vacancy_id = 40847256
 json_request = json.loads(requests.get(f'https://api.hh.ru/vacancies/{str(vacancy_id)}', header).text)
 
-for elmnt in json_request:  #  Вариант без list comprehension, что лучше? И непонятно, где мы используем сам elmnt
+for elmnt in json_request:  
     lst = '\n'.join(json_request)
 print(f'То, что мы можем использовать вообще для поиска в каждой вакансии: \n{lst}')
         

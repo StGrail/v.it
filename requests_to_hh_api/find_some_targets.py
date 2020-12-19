@@ -6,10 +6,9 @@ header = {'User-Agent': 'api-test-agent'}
 first_20 = requests.get('https://api.hh.ru/vacancies?text=python', header).text
 first_20_json = json.loads(first_20)
 one_vacancy = first_20_json['items'][0]
-params = [key for key in one_vacancy]
 
-for elmnt in params:
-    lst = '\n'.join(params)
+for attr in one_vacancy:
+    lst = '\n'.join(one_vacancy)
 print(f'То, что мы можем использовать вообще для поиска вакансий: \n{lst}')
 
 '''
@@ -56,4 +55,3 @@ print(f'То, что мы можем использовать вообще дл�
     working_time_intervals - object или null Временные интервалы работы. Элемент справочника working_time_intervals;
     working_time_modes - object или null Режимы времени работы. Элемент справочника working_time_modes;
 '''
-# Очередная попытка поправить пуш на сервер.
