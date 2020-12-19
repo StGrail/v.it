@@ -16,11 +16,21 @@ for elmnt in keys:
         
 '''
 Даем пользователю выбрать на сайте:
-    area - object Регион размещения вакансии(area.id string Идентификатор региона, area.name);
+    area - object Регион размещения вакансии(area.id string Идентификатор региона, area.name)
+        Москва = 1, Санкт-П = 2, пока можно оставить только мск и питер
+        https://api.hh.ru/areas
     salary — размер заработной платы;
+        only_with_salary=true&salary=30000
     experience - object	Требуемый опыт работы.({"id":"between1And3","name":"От 1 года до 3 лет"});
-    key_skills - Информация о ключевых навыках, заявленных в вакансии. Список может быть пустым. [{"name":"Python"},{"name":"MySQL"},{"name":"Flask"}];
+        "experience":[{"id":"noExperience","name":"Нет опыта"},
+        {"id":"between1And3","name":"От 1 года до 3 лет"},
+        {"id":"between3And6","name":"От 3 до 6 лет"},
+        {"id":"moreThan6","name":"Более 6 лет"}]
+    key_skills - Информация о ключевых навыках, заявленных в вакансии. Список может быть пустым. [{"name":"Python"},{"name":"   "},{"name":"Flask"}];
+        text = Python+Git+PostgreSQL+Django или Python+AND+somethng+OR+sddasdkdksa+OR+das
+        GET /skills?id={id1}&id={id2}&id={id3}
     has_test - boolean Информация о наличии прикрепленного тестового задании к вакансии;
+    не смог сделать нормальный запрос 
 
 
 Не даем пользователю выбирать, но можем использоватьсами:
