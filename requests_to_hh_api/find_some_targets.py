@@ -7,9 +7,8 @@ first_20 = requests.get('https://api.hh.ru/vacancies?text=python', header).text
 first_20_json = json.loads(first_20)
 one_vacancy = first_20_json['items'][0]
 
-for attr in one_vacancy:
-    lst = '\n'.join(one_vacancy)
-print(f'То, что мы можем использовать вообще для поиска вакансий: \n{lst}')
+output = '\n'.join(one_vacancy)
+print(f'То, что мы можем использовать вообще для поиска вакансий: \n{output}')
 
 '''
 Используем:
