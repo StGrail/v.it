@@ -1,0 +1,27 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-5">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="text-center border-bottom mb-3">Регистрация</legend>
+          {{ form.as_p }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-dark" type="submit">Зарегистрироваться</button>
+        </div>
+        <div class="border-top pt-1">
+          <small class="text-muted">
+            Уже есть аккаунт? <a class="ml-1" href="/login/">Войти</a>
+          </small>
+        </div>
+      </form>
+      </div>
+      <div class="col-4"></div>
+    </div>
+
+{% endblock content %}
+<!-- Доделать форму регистрации и выровнять ее-->
