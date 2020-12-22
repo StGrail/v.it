@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pages.apps.PagesConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +80,9 @@ WSGI_APPLICATION = 'django_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv('DB_NAME')),
-        'USER': str(os.getenv('DB_USER')),
-        'PASSWORD': str(os.getenv('SB_PASSWORD')),
+        'NAME': 'django_test',
+        'USER': 'django_test',
+        'PASSWORD': 'test1234',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -124,3 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CRISPY_TEMPLATE_PACK = 'uni_form'
+
