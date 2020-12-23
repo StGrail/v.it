@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 from .forms import UserJoinForm
 
 
@@ -24,19 +24,17 @@ def join(request):
     if request.method == 'POST':
         form = UserJoinForm(request.POST)
         if form.is_valid():
-            # try:
             form.save()
-            # username = form.cleaned_data.get('username')
-            # email = form.cleaned_data.get('email')
-            # password = form.cleaned_data.get('password')
-            # print(username)
-            # print(email)
-            # print(password)
             messages.success(request, 'Вы были успешно зарегистрированы.')
             return redirect('login')
     else:
         form = UserJoinForm()
     return render(request, 'join.html', {'form': form})
+
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
 
 
 def contacts(request):

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages.apps.PagesConfig',
+    'main_pages.apps.PagesConfig',
     'crispy_forms',
 ]
 
@@ -126,5 +126,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# CRISPY_TEMPLATE_PACK = 'uni_form'
-
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
