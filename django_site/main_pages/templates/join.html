@@ -3,20 +3,20 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-  <form method="POST">
-      {% csrf_token %}
-      <fieldset class="form-group">
+<form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
         <legend class="text-center border-bottom mb-3">Регистрация</legend>
         {{ form|crispy }}
-      </fieldset>
-      <div class="form-group">
+    </fieldset>
+    <div class="form-group">
         <button class="btn btn-outline-dark" type="submit">Зарегистрироваться</button>
-      </div>
-      <div class="border-top pt-1">
+    </div>
+    <div class="border-top pt-1">
         <small class="text-muted">
-          Уже есть аккаунт? <a class="ml-1" href="{% url 'login' %}">Войти</a>
+            Уже есть аккаунт? <a class="ml-1" href="{% url 'login' %}">Войти</a>
         </small>
-      </div>
-    </form>
+    </div>
+</form>
 
 {% endblock content %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserJoinForm
+from .forms import UserJoinForm, UserFullRegistationForm
 
 
 def home(request):
@@ -20,7 +20,7 @@ def login(request):
     return render(request, 'login.html', context)
 
 
-def join(request):
+def join(request):  # Проверку на полную регистрацию, если нет, то редирект.
     if request.method == 'POST':
         form = UserJoinForm(request.POST)
         if form.is_valid():
@@ -33,8 +33,22 @@ def join(request):
 
 
 @login_required
-def profile(request):
-    return render(request, 'profile.html')
+def profile(request):  # Нужно заменить "профиль" на окончание регистрации.
+    if request.method == 'POST':
+        full_form = UserFullRegistationForm(request.POST,
+                                            instance=request.user.profile)
+        if full_form.is_valid():
+            full_form.save()
+            messages.success(request,
+                             'Вы были успешно закончили зарегистрацию.')
+            return redirect('home')  # Заменить на редирект в профиль.
+    else:
+        full_form = UserFullRegistationForm(instance=request.user.profile)
+
+    context = {
+        'full_form': full_form,
+    }
+    return render(request, 'profile.html', context)
 
 
 def contacts(request):
