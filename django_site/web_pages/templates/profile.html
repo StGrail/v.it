@@ -1,0 +1,13 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h3>Форма профиля и кнопка изменения данных</h3>
+<p>{{ user.email }}</p>
+<p>{{ blabla.area }}</p>
+<p>{{ blabla.salary }}</p>
+<p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
+
+{% endblock content %}
+<!-- сделать запись в бд данных о зп, ареа и тд -->
