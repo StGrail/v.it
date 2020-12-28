@@ -7,19 +7,6 @@ from .managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-    objects = UserManager()
-
-    def __repr__(self):
-        return self.email
-
-
-class Blabla(models.Model):
     city = (
         ('Москва', 'Москва'),
         ('Санкт-Петербург', 'Санкт-Петербург'),
@@ -30,13 +17,21 @@ class Blabla(models.Model):
         ("between3And6", "От 3 до 6 лет"),
         ("moreThan6", "Более 6 лет"),
     )
-
-    # user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(_('email address'), unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
     area = models.CharField(max_length=100, choices=city, default='Москва')
-    salary = models.IntegerField(blank=True)
+    salary = models.IntegerField(null=True)
     experience = models.CharField(max_length=20, choices=experience,
                                   default="Нет опыта")
-    skills = models.CharField(max_length=100, blank=True)
+    skills = models.CharField(max_length=100, null=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    objects = UserManager()
+
+    def __repr__(self):
+        return self.email
 
 
 '''сделать связи между табличками  и зарегистировать в админ'''

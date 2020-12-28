@@ -4,9 +4,10 @@
 {% block content %}
 
 <h3>Форма профиля и кнопка изменения данных</h3>
-<p>{{ user.email }}</p>
-<p>{{ blabla.area }}</p>
-<p>{{ blabla.salary }}</p>
+<p>Ваш имейл - {{ user.email }}</p>
+<p>Ищете вакансии в городе - {{ user.area }}</p>
+<p>Примерный уровень зп - {{ user.salary }}</p>
+<p>Ваш опыт - {{ user.experience }}</p>
 <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
 
 {% endblock content %}

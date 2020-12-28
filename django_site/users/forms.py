@@ -1,27 +1,24 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-# from django.contrib.auth import forms
-from .models import User, Blabla
+from .models import User
 
 
 class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = User
-        fields = (
+        fields = [
             'email',
-            )
+            'area',
+            'salary',
+            'experience',
+            'skills',
+        ]
 
 
 class UserChangeForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ('email',)
-
-
-class FullReg(forms.ModelForm):
-    class Meta:
-        model = Blabla
         fields = [
+            'email',
             'area',
             'salary',
             'experience',
@@ -29,13 +26,4 @@ class FullReg(forms.ModelForm):
         ]
 
 
-class UpdateReg(forms.ModelForm):
-    class Meta:
-        model = Blabla
-        fields = [
-            'area',
-            'salary',
-            'experience',
-            'skills',
-        ]
 # TODO Апдейт форму занести в эдит_профиль, перевести на русский и проверить бд.
