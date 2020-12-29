@@ -1,7 +1,7 @@
-import config
+import config_db
 import psycopg2
 
-con = psycopg2.connect(**config.DATABASE)
+con = psycopg2.connect(**config_db.DATABASE)
 cur = con.cursor()
 cur.execute("""
     CREATE TABLE vacancies(

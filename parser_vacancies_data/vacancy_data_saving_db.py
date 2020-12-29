@@ -1,4 +1,5 @@
 import config
+import config_db
 import checking_vacancy_for_skills as cv
 import json
 import psycopg2
@@ -40,7 +41,7 @@ def processing_vacancies_list(count, short_vacancies):
 
 
 count = 0
-con = psycopg2.connect(**config.DATABASE)
+con = psycopg2.connect(**config_db.DATABASE)
 cur = con.cursor()
 for page in range(config.REQUEST_PAGE_COUNT):
     short_vacancies = get_request_data(f'{config.REQUEST_URL}{page}')
