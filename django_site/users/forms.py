@@ -18,7 +18,7 @@ class UserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = [
-            'email',
+            # 'email',
             'area',
             'salary',
             'experience',

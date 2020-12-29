@@ -36,7 +36,7 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
-@login_required
+@login_required  # Применяется не та форма.
 def edit_profile(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)

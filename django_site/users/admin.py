@@ -12,7 +12,7 @@ class UserAdmin(UserAdmin):
     list_display = ('email', 'is_staff',)
     list_filter = ('email', 'is_staff',)
     fieldsets = (
-        (None, {'fields': ('email', 'password',)}),
+        (None, {'fields': ('email', 'password', 'area', 'salary', 'experience', 'skills',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
@@ -22,9 +22,13 @@ class UserAdmin(UserAdmin):
                        'password1',
                        'password2',
                        'is_staff',
+                       'area',
+                       'salary',
+                       'experience',
+                       'skills',
                        )
             }
-        ),  # Поправить в пайчарм
+        ),  # Поправить 
     )
     search_fields = ('email',)
     ordering = ('email',)
