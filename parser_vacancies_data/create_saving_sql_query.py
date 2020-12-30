@@ -36,13 +36,13 @@ def get_vacancy_data(id_vacancy, skills, vacancy):
     return vacancy_data
 
 
-def create_SQL_query(count, vacancy_data):
+def create_SQL_query(vacancy_data):
     '''
     Принимает на вход счетчик вакансий и словарь значений, которые необходимо записать в таблицу vacancies БД.
     Возвращает кортеж, состоящий из двух строк: название колонок таблицы vacancies и значения соответствущих колонок
     '''
     table_columns = config.VACANCY_TABLE_COLUMNS
-    values = f'{count}, '
+    values = ''
     if not vacancy_data['skills']:
         table_columns = table_columns.replace('key_skills, ', '')
     if not vacancy_data['salary_from']:
