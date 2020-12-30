@@ -21,13 +21,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    area = models.CharField('город', max_length=100, choices=city,
-                            default='Москва')
-    salary = models.IntegerField('уровень зарплаты', null=True)
-    experience = models.CharField('опыт работы', max_length=20,
+    area = models.CharField('Выберите город поиска', max_length=100,
+                            choices=city, default='Москва')
+    salary = models.IntegerField('Уровень зарплаты', blank=True)
+    experience = models.CharField('Опыт работы', max_length=20,
                                   choices=experience, default="Нет опыта")
-    text = 'укажите дополнительные технологии, с которыми у вас есть опыт'
-    skills = models.CharField(text, max_length=100, null=True)
+    text = 'Укажите дополнительные технологии, с которыми у вас есть опыт'
+    skills = models.CharField(text, max_length=100, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()

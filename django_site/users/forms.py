@@ -18,12 +18,13 @@ class UserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = [
-            # 'email',
+            'email',
             'area',
             'salary',
             'experience',
             'skills',
         ]
 
-
+# PasswordResetForm(PasswordResetForm)
+# PasswordChangeForm(SetPasswordForm):
 # TODO Апдейт форму занести в эдит_профиль, перевести на русский и проверить бд.

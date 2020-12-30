@@ -39,17 +39,17 @@ def profile(request):
 @login_required  # Применяется не та форма.
 def edit_profile(request):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
+        edit_form = UserChangeForm(request.POST, instance=request.user)
+        if edit_form.is_valid():
+            edit_form.save()
             messages.success(request,
                              'Ваши данные были успешно изменены.')
             return redirect('profile')
     else:
-        form = UserCreationForm(instance=request.user)
+        edit_form = UserChangeForm(instance=request.user)
 
     context = {
         'title': 'Edit',
-        'form': form,
+        'form': edit_form,
     }
     return render(request, 'edit_profile.html', context)
