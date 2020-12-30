@@ -23,8 +23,6 @@ for vacancy in vacancies:
         else:
             sql_query_value.append('False')
     sql_query_value = ','.join(sql_query_value)
-    #print(config.SKILL_TABLE_COLUMNS)
-    #print(sql_query_value)
     try:
         cur.execute(f'INSERT INTO skills ({config.SKILL_TABLE_COLUMNS}) VALUES ({sql_query_value})')
     except (UniqueViolation, InFailedSqlTransaction):
