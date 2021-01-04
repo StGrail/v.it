@@ -3,12 +3,19 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<h3>Форма профиля и кнопка изменения данных</h3>
-<p>Ваш имейл - {{ user.email }}</p>
-<p>Ищете вакансии в городе - {{ user.area }}</p>
-<p>Примерный уровень зп - {{ user.salary }}</p>
-<p>Ваш опыт - {{ user.experience }}</p>
-<p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
+<div class="col">
+    <h5>Ваши данные:</h5>
+    <p>Email - {{ user.email }}</p>
+    <p>Город поиска - {{ user.area }}</p>
+    <p>Примерный уровень зп - {{ user.salary }}</p>
+    <p>Опыт работы - {{ user.experience }}</p>
+    <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
+</div>
+<div class="col">
+    <h2>Найти вакансии по моему запросу</h2>
+    <p>{{ vacancy_url }}</p>
+</div>
+<div class="col"></div>
 
 {% endblock content %}
 <!-- сделать запись в бд данных о зп, ареа и тд -->

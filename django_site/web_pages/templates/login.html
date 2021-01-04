@@ -3,27 +3,25 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        <legend class="text-center border-bottom mb-3">Авторизация</legend>
-        {{ form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <button class="btn btn-outline-dark" type="submit">Войти</button>
-    </div>
-    <div class="border-top pt-1">
-        <small class="text-muted">
-            Нет аккаунта? <a class="ml-1" href="{% url 'join' %}">Регистрация</a>
-        </small>
-    </div>
-</form>
+<div class="col"></div>
+<div class="col">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="text-center border-bottom mb-3">Авторизация</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-dark" type="submit">Войти</button>
+        </div>
+        <div class="border-top pt-1">
+            <small class="text-muted">
+                Нет аккаунта? <a class="ml-1" href="{% url 'join' %}">Регистрация</a>
+            </small>
+        </div>
+    </form>
+</div>
+<div class="col"></div>
 
-<script>
-$(document).ready(function(){
-   $(".active").removeClass("active");
-   $("link-login").addClass("active");
-});
-  </script>
 
 {% endblock content %}
