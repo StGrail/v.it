@@ -15,10 +15,15 @@ class UserCreationForm(UserCreationForm):
 
 
 class UserChangeForm(UserChangeForm):
-    class Meta:
+    class Meta(UserChangeForm):
         model = User
+        # exclude = [
+        #     'email',
+        #     'password',
+        #     'password2'
+        # ]
         fields = [
-            'email',
+            # 'email',
             'area',
             'salary',
             'experience',

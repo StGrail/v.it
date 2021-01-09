@@ -12,10 +12,12 @@
     <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
 </div>
 <div class="col">
-    <h2>Найти вакансии по моему запросу</h2>
-    <p>{{ vacancy_url }}</p>
+    <div class="form-group">
+        <h4>Вакансии по моему запросу:</h4>
+        <p>{{ user }}</p>
+        <p>{{ text }}</p>
+    </div>
 </div>
 <div class="col"></div>
 
 {% endblock content %}
-<!-- сделать запись в бд данных о зп, ареа и тд -->

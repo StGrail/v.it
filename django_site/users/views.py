@@ -2,18 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from users.forms import UserCreationForm, UserChangeForm
-from users.models import User
-import requests
-import json
-
-# from ..requests_to_hh_api.get_test import get_test
-
-
-def login(request):
-    context = {
-        'title': 'Login',  # title не работает
-    }
-    return render(request, 'login.html', context)
+from .models import User, Vacancies
+from hh_parser.vacancy_to_db import input_request, search_and_save
 
 
 def join(request):
@@ -34,50 +24,36 @@ def join(request):
 
 
 @login_required
-def profile(request):
-    # params = {
-    #     'User-Agent': 'api-test-agent',
-    # }
-
-    # def request_to_hh(experience='noExperience',
-    #                skill='Python',
-    #                area='Москва',
-    #                salary_from=''):
-    #     if skill != 'Python':
-    #         params['text'] = f'Python+AND+{skill}'
-    #     else:
-    #         params['text'] = skill
-    #     if area == 'Москва':
-    #         params['area'] = 1
-    #     if salary_from != '':
-    #         params['only_with_salary'] = 'true'
-    #         params['salary'] = f'{str(salary_from)}&from'
-    #     else:
-    #         salary_from = salary_from
-
-    #     vacancy = requests.get('https://api.hh.ru/vacancies', params=params)
-    #     vacancy_url = requests.utils.unquote(vacancy.url)
-    #     vacancy_text = requests.get(vacancy_url).text
-    #     vacancy_json = json.loads(vacancy_text)
-    #     # for item in vacancy_json['items']:
-    #     #     print(item['name'])
-    #     #     print(item['alternate_url'])
-    #     #     print(item['salary'])
-    #     #     print(item['type'])
-    #     print(vacancy_url)
-    #     return vacancy_url
-
-    # request_to_hh(experience=User.experience,
-    #               area=User.area,
-    #               salary_from=User.salary)
-    context = {
-        'title': 'Your profile',
-        # 'vacancy_url': vacancy_url,  #  Сделать табличку в базе и туда писать вакансии
-    }
-    return render(request, 'profile.html', context)
+def profile(request):  # Обработать вывод, если нет данных
+    try:
+        query_set = User.objects.filter(email=request.user).values('salary',
+                                                                   'area',
+                                                                   'experience',
+                                                                    )[0]
+        user_request = {
+            'salary_from': query_set['salary'],
+            'area': query_set['area'],
+            'experience': query_set['experience'],
+        }
+        find_vacancy = input_request(**user_request)
+        vacancies = search_and_save(request, find_vacancy)
+        """Достать и добавить вакансии из бд"""
+        context = {
+            'title': 'Your profile',
+        #     'vacancy_url': vacancy_url,
+        #     'vacancy_name': vacancy_name,
+        }
+        return render(request, 'profile.html', context)
+    except KeyError:
+        text = 'Завершите регистрацию.'
+        context = {
+            'title': 'Your profile',
+            'text': text,
+        }
+        return render(request, 'profile.html', context)
 
 
-@login_required  # Применяется не та форма.
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         edit_form = UserChangeForm(request.POST, instance=request.user)
@@ -91,6 +67,6 @@ def edit_profile(request):
 
     context = {
         'title': 'Edit',
-        'form': edit_form,
+        'edit_form': edit_form,
     }
     return render(request, 'edit_profile.html', context)
