@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users',
     'web_pages',
     'crispy_forms',
+    'parser_vacancies',
 ]
 
 MIDDLEWARE = [
@@ -85,9 +86,9 @@ WSGI_APPLICATION = 'django_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'v_it',
-        'USER': 'postgres',  # config.PG_USER,
-        'PASSWORD': '343453',  # config.PG_PASSWORD,
+        'NAME': 'django_test',
+        'USER': 'django_test',  # config.PG_USER,
+        'PASSWORD': 'test1234',  # config.PG_PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
