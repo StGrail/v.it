@@ -35,8 +35,8 @@ def profile(request):  # Обработать вывод, если нет дан
             'area': query_set['area'],
             'experience': query_set['experience'],
         }
-        find_vacancy = input_request(**user_request)
-        vacancies = search_and_save(request, find_vacancy)
+        # find_vacancy = input_request(**user_request)
+        # vacancies = search_and_save(request, find_vacancy)
         """Достать и добавить вакансии из бд"""
         context = {
             'title': 'Your profile',
