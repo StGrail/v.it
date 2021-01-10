@@ -4,9 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
-        """
-        Create and save a User with the given email and password.
-        """
+        """ Создание и сохранения юзера с имейлом (вместо юзернейма) и паролем."""
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
@@ -16,9 +14,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **extra_fields):
-        """
-        Create and save a SuperUser with the given email and password.
-        """
+        """ Создание и сохранения Админа с имейлом (вместо юзернейма) и паролем."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)

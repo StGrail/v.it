@@ -7,6 +7,7 @@ from .managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    ''' Таблица для юзеров.'''
     city = (
         ('Москва', 'Москва'),
         ('Санкт-Петербург', 'Санкт-Петербург'),
@@ -26,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     salary = models.IntegerField('Уровень зарплаты', blank=True, default=0)
     experience = models.CharField('Опыт работы', max_length=20,
                                   choices=experience, default="Нет опыта")
-    text = 'Укажите дополнительные технологии, с которыми у вас есть опыт'
+    text = 'Укажите дополнительные технологии, с которыми у вас есть опыт работы'
     skills = models.CharField(text, max_length=100, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -37,6 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Vacancies(models.Model):
+    ''' Таблица в бд для всех вакансий с парсинга.'''
     users = models.ManyToManyField(User)
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)

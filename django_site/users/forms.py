@@ -3,6 +3,7 @@ from .models import User
 
 
 class UserCreationForm(UserCreationForm):
+    ''' Форма создания пользователя.'''
     class Meta(UserCreationForm):
         model = User
         fields = [
@@ -15,15 +16,14 @@ class UserCreationForm(UserCreationForm):
 
 
 class UserChangeForm(UserChangeForm):
+    ''' Форма изменения данных пользователя.'''
     class Meta(UserChangeForm):
         model = User
-        # exclude = [
-        #     'email',
-        #     'password',
-        #     'password2'
-        # ]
+        exclude = [
+            'password',
+            'password2'
+        ]
         fields = [
-            # 'email',
             'area',
             'salary',
             'experience',
@@ -32,4 +32,3 @@ class UserChangeForm(UserChangeForm):
 
 # PasswordResetForm(PasswordResetForm)
 # PasswordChangeForm(SetPasswordForm):
-# TODO Апдейт форму занести в эдит_профиль, перевести на русский и проверить бд.

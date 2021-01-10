@@ -9,8 +9,8 @@ def input_request(experience='noExperience',
                   skill='Python',
                   area='Москва',
                   salary_from=''):
-    """ Выполняем запрос на хх.апи с данными пользователя и получаем список
-        id вакансий, который подходят под этот запрос."""
+    """ Переписать на поиск вакансий в таблице Vacancies по
+    запросу от пользователя."""
     params = {
         'User-Agent': 'api-test-agent',
     }

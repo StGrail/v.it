@@ -7,6 +7,7 @@ from hh_parser.vacancy_to_db import input_request, search_and_save
 
 
 def join(request):
+    ''' Регистрации юзера с последующим редиректом на страницу логина.'''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -25,6 +26,7 @@ def join(request):
 
 @login_required
 def profile(request):  # Обработать вывод, если нет данных
+    ''' Профиль юзера с выводом вакансий для него.'''
     try:
         query_set = User.objects.filter(email=request.user).values('salary',
                                                                    'area',
@@ -38,10 +40,10 @@ def profile(request):  # Обработать вывод, если нет дан
         # find_vacancy = input_request(**user_request)
         # vacancies = search_and_save(request, find_vacancy)
         """Достать и добавить вакансии из бд"""
+        text = 'Скоро тут будет список вакансий для Вас!'  # Заменить на данные из бд.
         context = {
             'title': 'Your profile',
-        #     'vacancy_url': vacancy_url,
-        #     'vacancy_name': vacancy_name,
+            'text': text,
         }
         return render(request, 'profile.html', context)
     except KeyError:
@@ -55,6 +57,7 @@ def profile(request):  # Обработать вывод, если нет дан
 
 @login_required
 def edit_profile(request):
+    ''' Изменениеданных профиля в лк.'''
     if request.method == 'POST':
         edit_form = UserChangeForm(request.POST, instance=request.user)
         if edit_form.is_valid():

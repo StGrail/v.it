@@ -6,18 +6,32 @@ from .models import User
 
 
 class UserAdmin(UserAdmin):
+    ''' Регистрация пользователя в Django-админке.'''
     add_form = UserCreationForm
     form = UserChangeForm
     model = User
     list_display = ('email', 'is_staff',)
     list_filter = ('email', 'is_staff',)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'area', 'salary', 'experience', 'skills',)}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        (None, {'fields': ('email',
+                           'password',
+                           'area',
+                           'salary',
+                           'experience',
+                           'skills',
+                           )
+                }
+         ),
+        ('Permissions', {'fields': ('is_staff',
+                                    'is_active'
+                                    )
+                         }
+         ),
     )
     add_fieldsets = (
         (None, {
-            'classes': ('wide',),
+            'classes': ('wide',
+                        ),
             'fields': ('email',
                        'password1',
                        'password2',
@@ -28,7 +42,7 @@ class UserAdmin(UserAdmin):
                        'skills',
                        )
             }
-        ),  # Поправить 
+         ),
     )
     search_fields = ('email',)
     ordering = ('email',)
