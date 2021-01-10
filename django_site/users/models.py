@@ -17,7 +17,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("between3And6", "От 3 до 6 лет"),
         ("moreThan6", "Более 6 лет"),
     )
-    # user_id = models.Index()
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -38,11 +37,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Vacancies(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    vacancy_id = models.CharField(max_length=100, unique=True, blank=True)
+    users = models.ManyToManyField(User)
+    id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
+    experience = models.CharField(max_length=100, blank=True)
+    salary_from = models.CharField(max_length=100, blank=True)
+    salary_to = models.CharField(max_length=100, blank=True)
     url = models.CharField(max_length=100, blank=True)
+    published = models.CharField(max_length=100, blank=True)
+    contains_skills = models.BooleanField(blank=True, null=True)
 
     class Meta:
         app_label = 'users'
