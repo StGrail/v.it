@@ -1,0 +1,30 @@
+план:
+1) заполнить базу всеми вакансиями Vacancies(поля:
+- столбец связи с юзерами(id) many_to_many;
+    id_vacancy,
+    key_skills, 
+    experience,
+    salary_from,
+    salary_to,
+    name_vacancy,
+    area VARCHAR,
+    published,
+    alternate_url,
+    contains_skills
+)
+2) сделать приложение-парсер
+
+Таблицы:
+1) Users
+2) Vacancies
+3) Skills for ML(vacancy_id)
+
+
+
+
+
+
+Только мой план:
+3) добавить форму изменения пароля
+4) связи таблицы юзер и вакансий
+5) заполнить таблицу парсингом с хх

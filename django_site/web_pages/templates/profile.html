@@ -1,0 +1,23 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="col">
+    <h5>Ваши данные:</h5>
+    <p>Email - {{ user.email }}</p>
+    <p>Город поиска - {{ user.area }}</p>
+    <p>Примерный уровень зп - {{ user.salary }}</p>
+    <p>Опыт работы - {{ user.experience }}</p>
+    <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
+</div>
+<div class="col">
+    <div class="form-group">
+        <h4>Вакансии по моему запросу:</h4>
+        <p>{{ user }}</p>
+        <p>{{ text }}</p>
+    </div>
+</div>
+<div class="col"></div>
+
+{% endblock content %}

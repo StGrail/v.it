@@ -1,0 +1,18 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col"></div>
+<div class="col">
+    <h4>Вы вышли из личного кабинета.</h4>
+    <div class="border-top pt-1 text-center">
+        <small>
+            <a href="{% url 'login' %}">Войти снова</a>
+        </small>
+    </div>
+</div>
+<div class="col"></div>
+
+
+
+{% endblock content %}

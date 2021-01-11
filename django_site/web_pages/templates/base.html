@@ -1,0 +1,91 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+    {% if title %}
+    <title>V.it | {{ title }}</title>
+    {% else %}
+    <title>V.it</title>
+    {% endif %}
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" id="navbarNavAltMarkup">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">V.it</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li id="link-homepage" class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная
+                        <span class="sr-only">(current)</span></a>
+                </li>
+                {% if user.is_authenticated %}
+                <li id="link-profile" class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">Личный кабинет</a>
+                </li>
+                <li id="link-logout" class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                </li>
+                {% else %}
+                <li id="link-login" class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                </li>
+                <li id="link-join" class="nav-item">
+                    <a class="nav-link" href="{% url 'join' %}">Регистрация</a>
+                </li>
+                {% endif %}
+                <!-- <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li> -->
+                <li id="link-contacts" class="nav-item">
+                    <a class="nav-link disabled" href="#">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Main Content-->
+<div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    <div class="row">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Highlight current page on NavBar -->
+<script>
+    $(function () {
+        $('nav li a').filter(function () {
+            return this.href === location.href;
+        }).addClass('active');
+    });
+</script>
+
+
+</body>
+</html>
