@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from users.forms import UserCreationForm, UserChangeForm
 from .models import User, Vacancies
-from hh_parser.vacancy_to_db import input_request, search_and_save
 
 
 def join(request):
@@ -25,34 +24,26 @@ def join(request):
 
 
 @login_required
-def profile(request):  # Обработать вывод, если нет данных
+def profile(request):
     ''' Профиль юзера с выводом вакансий для него.'''
-    try:
-        query_set = User.objects.filter(email=request.user).values('salary',
-                                                                   'area',
-                                                                   'experience',
-                                                                    )[0]
-        user_request = {
-            'salary_from': query_set['salary'],
-            'area': query_set['area'],
-            'experience': query_set['experience'],
-        }
-        # find_vacancy = input_request(**user_request)
-        # vacancies = search_and_save(request, find_vacancy)
-        """Достать и добавить вакансии из бд"""
-        text = 'Скоро тут будет список вакансий для Вас!'  # Заменить на данные из бд.
-        context = {
-            'title': 'Your profile',
-            'text': text,
-        }
-        return render(request, 'profile.html', context)
-    except KeyError:
-        text = 'Завершите регистрацию.'
-        context = {
-            'title': 'Your profile',
-            'text': text,
-        }
-        return render(request, 'profile.html', context)
+    user_request = User.objects.filter(email=request.user).values('salary',
+                                                                  'area',
+                                                                  'experience',
+                                                                  )[0]
+    area = user_request['area']
+    experience = user_request['experience']
+
+    vacanies_list = Vacancies.objects.filter(area=area,
+                                             experience=experience
+                                             ).values('name',
+                                                      'url',
+                                                      ).order_by('published')
+
+    context = {
+        'title': 'Your profile',
+        'vacancies_list': vacanies_list,
+    }
+    return render(request, 'profile.html', context)
 
 
 @login_required
