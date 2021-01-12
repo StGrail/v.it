@@ -3,6 +3,30 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+<!-- <style>
+    .pagination {
+      display: inline-block;
+    }
+    
+    .pagination a {
+      color: rgb(46, 44, 44);
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+    
+    .pagination a.active {
+      background-color: #202020;
+      color: white;
+      border-radius: 5px;
+    }
+    
+    .pagination a:hover:not(.active) {
+      background-color: #ddd;
+      border-radius: 5px;
+    }
+</style> -->
+
 <div class="col">
     <!-- Left block with user's info -->
     <h5>Ваши данные:</h5>
@@ -16,13 +40,40 @@
     <!-- Middle block with list of vacancies -->
     <div class="form-group">
         <h4>Вакансии по вашему запросу:</h4>
-        {% for vacancy in vacancies_list %}
-            {% if forloop.counter <= 5 %}
-                <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
-            {% endif %}
+        {% for vacancy in page_obj %}
+            <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
         {% empty %}
             <p>Скоро тут будет список вакансий для Вас!</p>
         {% endfor %}
+
+        <!-- <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#" class="active">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+          </div> -->
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo;</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">&larr;</a>
+                {% endif %}
+        
+                <span class="active">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">&rarr;</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 </div>
 <div class="col"></div>

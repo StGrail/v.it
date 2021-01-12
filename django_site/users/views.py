@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from users.forms import UserCreationForm, UserChangeForm
 from .models import User, Vacancies
 
@@ -38,10 +39,14 @@ def profile(request):
                                              ).values('name',
                                                       'url',
                                                       ).order_by('published')
+    paginator = Paginator(vacanies_list, 5)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'title': 'Your profile',
-        'vacancies_list': vacanies_list,
+        'page_obj': page_obj,
     }
     return render(request, 'profile.html', context)
 
