@@ -13,6 +13,9 @@
     </fieldset>
     <div class="form-group">
         <button class="btn btn-outline-dark" type="submit">Войти</button>
+        <small class="text-muted ml-2">
+            <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+        </small>
     </div>
     <div class="border-top pt-1 text-center">
         <small class="text-muted">
@@ -22,6 +25,5 @@
     </form>
 </div>
 <div class="col"></div>
-
 
 {% endblock content %}
