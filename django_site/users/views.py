@@ -5,7 +5,6 @@ from django.core.paginator import Paginator
 
 from users.forms import UserCreationForm, UserChangeForm
 from .models import User, Vacancies
-from django_site.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 
 def join(request):
@@ -35,9 +34,12 @@ def profile(request):
                                                                   )[0]
     area = user_request['area']
     experience = user_request['experience']
+    salary = user_request['salary']
 
     vacanies_list = Vacancies.objects.filter(area=area,
-                                             experience=experience
+                                             experience=experience,
+                                             salary_from__lte=salary,
+                                             salary_to__gte=salary,
                                              ).values('name',
                                                       'url',
                                                       ).order_by('-published')
@@ -45,7 +47,6 @@ def profile(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    print(EMAIL_HOST_USER)
 
     context = {
         'title': 'Your profile',
