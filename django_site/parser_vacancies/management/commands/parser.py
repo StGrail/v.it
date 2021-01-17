@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def get_vacancy_data(self, id_vacancy, vacancy, contains_skills):
         '''
-        Принмает на вход id вакансии, индикатор наличия скиллов, полное представление вакансии также ввиде словаря.
+        Принмает на вход id вакансии, полное представление вакансии ввиде словаря, индикатор наличия скиллов.
         Возвращает словарь полей вакансии, которые будут записаны в таблицу vacancies БД.
         '''
         vacancy_data = {'id_vacancy': id_vacancy}
@@ -59,10 +59,10 @@ class Command(BaseCommand):
                         contains_skills=vacancy_data['contains_skills'],
                         )
         try:
-            row_vacancy.save()
+           row_vacancy.save()
         except IntegrityError:
-            print(f"Vacancy with id {vacancy_data['id_vacancy']} is contained in the database")
-            return
+           print(f"Vacancy with id {vacancy_data['id_vacancy']} is contained in the database")
+           return
         if vacancy_data['contains_skills']:
             row_vacancy_skills = Skills(
                         id_vacancy=row_vacancy,
@@ -90,6 +90,7 @@ class Command(BaseCommand):
                         redis=skills_dict['redis'],
                         )
             row_vacancy_skills.save()
+            
 
 
     def processing_vacancies_in_page(self, short_vacancies):

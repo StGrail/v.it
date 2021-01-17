@@ -55,4 +55,4 @@ class Vacancies(models.Model):
         managed = True
 
     def __repr__(self):
-        return self.vacancy_id
+        return self.id_vacancy

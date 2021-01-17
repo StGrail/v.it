@@ -1,5 +1,5 @@
 # Количество вакансий на одной странице
-REQUEST_PER_PAGE = 20
+REQUEST_PER_PAGE = 10
 # Количество запрашиваемых страниц
 REQUEST_PAGE_COUNT = 5
 # Базовый URL для запроса вакансий у api hh.ru
