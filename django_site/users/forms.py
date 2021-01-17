@@ -19,16 +19,13 @@ class UserChangeForm(UserChangeForm):
     ''' Форма изменения данных пользователя.'''
     class Meta(UserChangeForm):
         model = User
-        exclude = [
-            'password',
-            'password2'
-        ]
         fields = [
             'area',
             'salary',
             'experience',
             'skills',
         ]
-
-# PasswordResetForm(PasswordResetForm)
-# PasswordChangeForm(SetPasswordForm):
+        exclude = [
+            'password',
+            'password2'
+        ]

@@ -3,7 +3,7 @@ REQUEST_PER_PAGE = 10
 # Количество запрашиваемых страниц
 REQUEST_PAGE_COUNT = 5
 # Базовый URL для запроса вакансий у api hh.ru
-REQUEST_URL = f'https://api.hh.ru/vacancies?text=python+developers&per_page={REQUEST_PER_PAGE}&page='
+REQUEST_URL = f'https://api.hh.ru/vacancies?text=python&per_page={REQUEST_PER_PAGE}&page='
 # Список обрабатываемых скиллов
 PROCESSING_SKILLS = [
     'sql', 'linux', 'git', 'postgresql', 'django framework', 'django', 'flask',

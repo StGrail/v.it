@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+
 from users.forms import UserCreationForm, UserChangeForm
 from .models import User, Vacancies
 
@@ -33,13 +34,16 @@ def profile(request):
                                                                   )[0]
     area = user_request['area']
     experience = user_request['experience']
+    salary = user_request['salary']
 
     vacanies_list = Vacancies.objects.filter(area=area,
-                                             experience=experience
+                                             experience=experience,
+                                             salary_from__lte=salary,
+                                             salary_to__gte=salary,
                                              ).values('name',
                                                       'url',
-                                                      ).order_by('published')
-    paginator = Paginator(vacanies_list, 5)
+                                                      ).order_by('-published')
+    paginator = Paginator(vacanies_list, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -53,7 +57,7 @@ def profile(request):
 
 @login_required
 def edit_profile(request):
-    ''' Изменениеданных профиля в лк.'''
+    ''' Изменение данных профиля в лк.'''
     if request.method == 'POST':
         edit_form = UserChangeForm(request.POST, instance=request.user)
         if edit_form.is_valid():
