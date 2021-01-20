@@ -49,6 +49,14 @@
       {% endif %}
   </div>
 </div>
-<div class="col"></div>
+<div class="col">
+    <h4>Рекомендованные вакансии:</h4>
+    {% for vacancy in recommended_vacancies %}
+    <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
+    {% empty %}
+        <p>Скоро тут будет список вакансий, рекомендованный специально для Вас!</p>
+    {% endfor %}
+
+</div>
 
 {% endblock content %}

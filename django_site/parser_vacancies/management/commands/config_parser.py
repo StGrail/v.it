@@ -1,7 +1,7 @@
 # Количество вакансий на одной странице
-REQUEST_PER_PAGE = 10
+REQUEST_PER_PAGE = 100
 # Количество запрашиваемых страниц
-REQUEST_PAGE_COUNT = 5
+REQUEST_PAGE_COUNT = 10
 # Базовый URL для запроса вакансий у api hh.ru
 REQUEST_URL = f'https://api.hh.ru/vacancies?text=python&per_page={REQUEST_PER_PAGE}&page='
 # Список обрабатываемых скиллов

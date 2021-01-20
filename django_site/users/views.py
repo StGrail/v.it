@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
+from recommendation.recommendation_services import recommendations
 from users.forms import UserCreationForm, UserChangeForm
 from .models import User, Vacancies
 
@@ -35,7 +36,6 @@ def profile(request):
     area = user_request['area']
     experience = user_request['experience']
     salary = user_request['salary']
-
     vacanies_list = Vacancies.objects.filter(area=area,
                                              experience=experience,
                                              salary_from__lte=salary,
@@ -44,13 +44,20 @@ def profile(request):
                                                       'url',
                                                       ).order_by('-published')
     paginator = Paginator(vacanies_list, 10)
-
+    user_data = User.objects.filter(email=request.user).values('area',
+                                                               'experience',
+                                                               'salary',
+                                                               'skills')
+    recommended_vacancies_id = recommendations(user_data)
+    recommended_vacancies_to_view = Vacancies.objects.filter(id__in=recommended_vacancies_id,
+                                                    ).values('name', 'url')
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
         'title': 'Your profile',
         'page_obj': page_obj,
+        'recommended_vacancies': recommended_vacancies_to_view,
     }
     return render(request, 'profile.html', context)
 
@@ -73,3 +80,4 @@ def edit_profile(request):
         'edit_form': edit_form,
     }
     return render(request, 'edit_profile.html', context)
+

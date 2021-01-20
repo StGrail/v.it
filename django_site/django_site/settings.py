@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'web_pages',
     'crispy_forms',
     'parser_vacancies',
-    'recommendations',
+    'recommendation',
+    
 ]
 
 MIDDLEWARE = [
