@@ -29,8 +29,8 @@ def join(request):
 @login_required
 def profile(request):
     ''' Профиль юзера с выводом вакансий для него.'''
-    user_request = User.objects.filter(email=request.user).values('salary',
-                                                                  'area',
+    user_request = User.objects.filter(email=request.user).values('area',
+                                                                  'salary',
                                                                   'experience',
                                                                   )[0]
     area = user_request['area']
@@ -50,7 +50,7 @@ def profile(request):
                                                                'skills')
     recommended_vacancies_id = recommendations(user_data)
     recommended_vacancies_to_view = Vacancies.objects.filter(id__in=recommended_vacancies_id,
-                                                    ).values('name', 'url')
+                                                             ).values('name', 'url')
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

@@ -1,5 +1,7 @@
 from django.db import models
+
 from users.models import Vacancies
+
 
 class Skills(models.Model):
     id_vacancy = models.OneToOneField(Vacancies, on_delete=models.CASCADE)
@@ -26,7 +28,5 @@ class Skills(models.Model):
     unix = models.BooleanField(default=False)
     redis = models.BooleanField(default=False)
 
-
     def __repr__(self):
         return self.id_vacancy
-
