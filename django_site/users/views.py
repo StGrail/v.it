@@ -32,10 +32,11 @@ def profile(request):
     user_request = User.objects.filter(email=request.user).values('salary',
                                                                   'area',
                                                                   'experience',
-                                                                  )[0]
-    area = user_request['area']
-    experience = user_request['experience']
-    salary = user_request['salary']
+                                                                  'skills',
+                                                                  )
+    area = user_request[0]['area']
+    experience = user_request[0]['experience']
+    salary = user_request[0]['salary']
     vacanies_list = Vacancies.objects.filter(area=area,
                                              experience=experience,
                                              salary_from__lte=salary,
@@ -44,13 +45,12 @@ def profile(request):
                                                       'url',
                                                       ).order_by('-published')
     paginator = Paginator(vacanies_list, 10)
-    user_data = User.objects.filter(email=request.user).values('area',
-                                                               'experience',
-                                                               'salary',
-                                                               'skills')
-    recommended_vacancies_id = recommendations(user_data)
-    recommended_vacancies_to_view = Vacancies.objects.filter(id__in=recommended_vacancies_id,
-                                                    ).values('name', 'url')
+    recommended_vacancies_id = recommendations(user_request)
+    if recommended_vacancies_id:
+        recommended_vacancies_to_view = Vacancies.objects.filter(id__in=recommended_vacancies_id,
+                                                        ).values('name', 'url')
+    else:
+        recommended_vacancies_to_view = None
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

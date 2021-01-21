@@ -13,7 +13,6 @@
     <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
 </div>
 <div class="col">
-    
   <!-- Middle block with list of vacancies -->
   <div class="form-group">
       <h4>Вакансии по вашему запросу:</h4>
@@ -50,9 +49,10 @@
   </div>
 </div>
 <div class="col">
+    <!-- Right block with recommended vacancies -->
     <h4>Рекомендованные вакансии:</h4>
     {% for vacancy in recommended_vacancies %}
-    <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
+        <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
     {% empty %}
         <p>Скоро тут будет список вакансий, рекомендованный специально для Вас!</p>
     {% endfor %}
