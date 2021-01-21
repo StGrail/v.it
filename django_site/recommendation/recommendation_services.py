@@ -81,7 +81,7 @@ def recommendations(user_data: 'QuerySet') -> list:
     user_experience = list(user_data)[0]['experience']
     user_salary = list(user_data)[0]['salary']
     if not user_skill_vector:
-        return False
+        return None
     else:
         selected_vacancies = Vacancies.objects.filter(area=user_area,
                                                     experience=user_experience,

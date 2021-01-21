@@ -3,60 +3,76 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="col">
-    <!-- Left block with user's info -->
-    <h5>Ваши данные:</h5>
-    <p>Email - {{ user.email }}</p>
-    <p>Город поиска - {{ user.area }}</p>
-    <p>Примерный уровень зп - {{ user.salary }}</p>
-    <p>Опыт работы - {{ user.experience }}</p>
-    <p><a href="{% url 'edit_profile' %}">Изменить данные</a></p>
-</div>
-<div class="col">
-    
-  <!-- Middle block with list of vacancies -->
-  <div class="form-group">
-      <h4>Вакансии по вашему запросу:</h4>
-      {% for vacancy in page_obj %}
-          <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
-      {% empty %}
-          <p>Скоро тут будет список вакансий для Вас!</p>
-      {% endfor %}
-
-      <!-- Pagination -->
-      {% if page_obj.paginator.num_pages > 1 %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a class="btn btn-outline-dark mb-4" href="?page=1">&laquo;</a>
-                    <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.previous_page_number }}">&larr;</a>
-                {% endif %}
-
-                {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                <a class="btn btn-dark mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-                <a class="btn btn-outline-dark mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-                {% endfor %}
-        
-                {% if page_obj.has_next %}
-                    <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.next_page_number }}">&rarr;</a>
-                    <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-      {% endif %}
+<!-- Left block with user's info -->
+<div class="col-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ваши данные:</h5>
+      <p class="card-text">
+          Email: {{ user.email }}<br>
+          Город поиска: {{ user.area }}<br>
+          Опыт работы: {{ user.experience }}<br>
+      </p>
+      <div class="text-center">
+        <a class="btn btn-outline-dark btn-sm" href="{% url 'edit_profile' %}">Изменить данные</a>
+      </div>
+    </div>
   </div>
 </div>
-<div class="col">
-    <h4>Рекомендованные вакансии:</h4>
-    {% for vacancy in recommended_vacancies %}
-    <p>{{forloop.counter}}. {{ vacancy.name }} <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
-    {% empty %}
-        <p>Скоро тут будет список вакансий, рекомендованный специально для Вас!</p>
-    {% endfor %}
 
+<!-- Middle block with list of vacancies -->
+<div class="col-5">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Вакансии по вашему запросу:</h5>
+      <p class="card-text">
+        {% for vacancy in page_obj %}
+          <p>{{forloop.counter}}. {{ vacancy.name }} <br><a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
+        {% empty %}
+          <p>Скоро тут будет список вакансий для Вас!</p>
+        {% endfor %}
+
+        <!-- Pagination -->
+        {% if page_obj.paginator.num_pages > 1 %}
+          <div class="pagination">
+            {% if page_obj.has_previous %}
+              <a class="btn btn-outline-dark btn-sm" href="?page=1">&laquo;</a>
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.previous_page_number }}">&larr;</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.next_page_number }}">&rarr;</a>
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </p>
+    </div>
+  </div>
 </div>
 
+<!-- Right block with recommended vacancies -->
+<div class="col-4">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Рекомендуемые вакансии:</h5>
+      <p class="card-text">
+        {% for vacancy in recommended_vacancies %}
+          {{forloop.counter}}. {{ vacancy.name }}
+            <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a><br>
+        {% empty %}
+          Укажите дополнительные технологии, с которыми у Вас есть опыт работы и мы сможем подобрать схожие вакансии.
+        {% endfor %}
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock content %}

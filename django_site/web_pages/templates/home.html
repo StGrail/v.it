@@ -2,10 +2,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col"></div>
-<div class="col">
-    <h1>{{ headline }}</h1>
+<div class="col-3"></div>
+<div class="col-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">{{ headline }}</h4>
+            <p class="card-text"></p>
+        </div>
+      </div>
 </div>
-<div class="col"></div>
+<div class="col-4"></div>
 
 {% endblock content %}
