@@ -9,7 +9,8 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     ''' Таблица для юзеров.'''
-    additional_skiils = 'Укажите дополнительные технологии, с которыми у вас есть опыт работы'
+    additional_skills = 'Через зарятую укажите дополнительные технологии, '
+    additional_skills += 'с которыми у вас есть опыт работы.'
     text = 'Многие работодатели не указывают уровень зп, показывать такие вакансии?'
     city = (
         ('Москва', 'Москва'),
@@ -36,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                          default=False)
     experience = models.CharField('Опыт работы', max_length=20,
                                   choices=experience, default="Нет опыта")
-    skills = models.CharField(additional_skiils, max_length=100, blank=True)
+    skills = models.CharField(additional_skills, max_length=100, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
@@ -47,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Vacancies(models.Model):
     ''' Таблица в бд для всех вакансий с парсинга.'''
-    users = models.ManyToManyField(User)
+    # users = models.ManyToManyField(User)
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
@@ -57,6 +58,7 @@ class Vacancies(models.Model):
     url = models.CharField(max_length=100, blank=True)
     published = models.DateTimeField(blank=True)
     contains_skills = models.BooleanField(blank=True, null=True)
+    rating = models.IntegerField(blank=True, null=True)
 
     class Meta:
         app_label = 'users'
@@ -64,3 +66,16 @@ class Vacancies(models.Model):
 
     def __repr__(self):
         return self.id_vacancy
+
+
+# class Rating(models.Model):
+#     CHOISES = (
+#         (1, 'Больше не показывать'),
+#         (2, '2'),
+#         (3, '4'),
+#         (4, '5'),
+#         (5, '5'),
+#     )
+#     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+#     vacancy_id = models.ForeignKey(Vacancies.objects.filter(id_vacancy_id='id_vacancy'))
+#     rating = models.IntegerField(choices=CHOISES, blank=True)

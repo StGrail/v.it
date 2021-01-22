@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django import forms
 from django.forms import ModelForm
 
-from .models import User
+from .models import User, Vacancies
 
 
 class UserCreationForm(UserCreationForm):
@@ -29,3 +30,18 @@ class UserChangeForm(ModelForm):
             'without_salary',
             'skills',
         ]
+
+
+class Rating(forms.Form):
+    CHOISES = (
+        (0, 'Больше не показывать'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    rating = forms.ChoiceField(label='Оцените вакансию:',
+                               choices=CHOISES,
+                               required=False,
+                               )
