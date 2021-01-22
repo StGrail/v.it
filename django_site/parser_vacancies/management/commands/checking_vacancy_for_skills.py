@@ -2,13 +2,17 @@ from bs4 import BeautifulSoup
 from parser_vacancies.management.commands import config_parser
 
 
-def processing_long_skill_name(skill_list):
+def processing_long_skill_name(skill_list: list) -> str:
+    """
+    Функция, которая обрабатывает название скиллов из вакансии, которые в длинну
+    больше одного слова
+    """
     for skill in skill_list:
         if skill in config_parser.PROCESSING_SKILLS:
             return skill
 
 
-def is_skill_in_list(vacancy):
+def is_skill_in_list(vacancy: dict) -> dict:
     '''
     Функция принимает на вход полное представление вакансии в виде словаря. 
     Возвращает словарь скиллов, содержащихся в ключевых навыках и описании вакансии
