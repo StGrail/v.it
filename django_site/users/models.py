@@ -9,7 +9,8 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     ''' Таблица для юзеров.'''
-    text = 'Укажите дополнительные технологии, с которыми у вас есть опыт работы'
+    additional_skiils = 'Укажите дополнительные технологии, с которыми у вас есть опыт работы'
+    text = 'Многие работодатели не указывают уровень зп, показывать такие вакансии?'
     city = (
         ('Москва', 'Москва'),
         ('Санкт-Петербург', 'Санкт-Петербург'),
@@ -20,6 +21,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("от 3 до 6 лет", "От 3 до 6 лет"),
         ("более 6 лет", "Более 6 лет"),
     )
+    show_without_salary = (
+        (False, 'Не показывать'),
+        (True, 'Показывать'),
+    )
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -27,9 +32,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     area = models.CharField('Выберите город поиска', max_length=100,
                             choices=city, default='Москва')
     salary = models.IntegerField('Уровень зарплаты', blank=True, default=0)
+    without_salary = models.BooleanField(text, choices=show_without_salary,
+                                         default=False)
     experience = models.CharField('Опыт работы', max_length=20,
                                   choices=experience, default="Нет опыта")
-    skills = models.CharField(text, max_length=100, blank=True)
+    skills = models.CharField(additional_skiils, max_length=100, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()

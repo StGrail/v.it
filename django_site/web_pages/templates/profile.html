@@ -26,31 +26,31 @@
     <div class="card-body">
       <h5 class="card-title">Вакансии по вашему запросу:</h5>
       <p class="card-text">
-        {% for vacancy in page_obj %}
+        {% for vacancy in vacancies %}
           <p>{{forloop.counter}}. {{ vacancy.name }} <br><a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
         {% empty %}
           <p>Скоро тут будет список вакансий для Вас!</p>
         {% endfor %}
 
         <!-- Pagination -->
-        {% if page_obj.paginator.num_pages > 1 %}
+        {% if vacancies.paginator.num_pages > 1 %}
           <div class="pagination">
-            {% if page_obj.has_previous %}
+            {% if vacancies.has_previous %}
               <a class="btn btn-outline-dark btn-sm" href="?page=1">&laquo;</a>
-              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.previous_page_number }}">&larr;</a>
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.previous_page_number }}">&larr;</a>
             {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
+            {% for num in vacancies.paginator.page_range %}
+              {% if vacancies.number == num %}
                 <a class="btn btn-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
-              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              {% elif num > vacancies.number|add:'-3' and num < vacancies.number|add:'3' %}
                 <a class="btn btn-outline-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
               {% endif %}
             {% endfor %}
     
-            {% if page_obj.has_next %}
-              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.next_page_number }}">&rarr;</a>
-              <a class="btn btn-outline-dark btn-sm" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+            {% if vacancies.has_next %}
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.next_page_number }}">&rarr;</a>
+              <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.paginator.num_pages }}">&raquo;</a>
             {% endif %}
           </div>
         {% endif %}
