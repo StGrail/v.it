@@ -33,18 +33,27 @@ def profile(request):
                                                                   'salary',
                                                                   'experience',
                                                                   'skills',
+                                                                  'without_salary',
                                                                   )
     area = user_request[0]['area']
     experience = user_request[0]['experience']
     salary = user_request[0]['salary']
-    vacanies_list = Vacancies.objects.filter(area=area,
-                                             experience=experience,
-                                             salary_from__lte=salary,
-                                             salary_to__gte=salary,
-                                             ).values('name',
-                                                      'url',
-                                                      ).order_by('-published')
-    paginator = Paginator(vacanies_list, 10)
+    without_salary = user_request[0]['without_salary']
+    if without_salary is False:
+        vacanies_list = Vacancies.objects.filter(area=area,
+                                                 experience=experience,
+                                                 salary_from__lte=salary,
+                                                 salary_to__gte=salary,
+                                                 ).values('name',
+                                                          'url',
+                                                          ).order_by('-published')
+    else:
+        vacanies_list = Vacancies.objects.filter(area=area,
+                                                 experience=experience,
+                                                 ).values('name',
+                                                          'url',
+                                                          ).order_by('-published')
+
     recommended_vacancies_id = recommendations(user_request)
     if recommended_vacancies_id:
         recommended_vacancies_to_view = Vacancies.objects.filter(id__in=recommended_vacancies_id,
@@ -52,12 +61,13 @@ def profile(request):
     else:
         recommended_vacancies_to_view = None
 
+    paginator = Paginator(vacanies_list, 10)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    vacancies = paginator.get_page(page_number)
 
     context = {
         'title': 'Your profile',
-        'page_obj': page_obj,
+        'vacancies': vacancies,
         'recommended_vacancies': recommended_vacancies_to_view,
     }
     return render(request, 'profile.html', context)

@@ -1,4 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import ModelForm
+
 from .models import User
 
 
@@ -10,12 +12,13 @@ class UserCreationForm(UserCreationForm):
             'email',
             'area',
             'salary',
+            'without_salary',
             'experience',
             'skills',
         ]
 
 
-class UserChangeForm(UserChangeForm):
+class UserChangeForm(ModelForm):
     ''' Форма изменения данных пользователя.'''
     class Meta(UserChangeForm):
         model = User
@@ -23,9 +26,6 @@ class UserChangeForm(UserChangeForm):
             'area',
             'salary',
             'experience',
+            'without_salary',
             'skills',
-        ]
-        exclude = [
-            'password',
-            'password2'
         ]
