@@ -49,7 +49,6 @@
                       <a class="nav-link" href="{% url 'join' %}">Регистрация</a>
                   </li>
                   {% endif %}
-                  <!-- <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li> -->
                   <li id="link-contacts" class="nav-item">
                       <a class="nav-link disabled" href="#">Контакты</a>
                   </li>
@@ -82,6 +81,11 @@
 <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
+<!-- blabla -->
+<link href="{% static 'css/jquery.rating.css' %}" rel="stylesheet">
+<script src="{% static 'jquery/jquery.min.js' %}"></script>
+<script src="{% static 'jquery/jquery.rating.js' %}"></script>
+
 <!-- Highlight current page on NavBar -->
 <script>
     $(function () {
@@ -90,7 +94,6 @@
         }).addClass('active');
     });
 </script>
-
 
 </body>
 </html>
