@@ -27,7 +27,16 @@
       <h5 class="card-title">Вакансии по вашему запросу:</h5>
       <p class="card-text">
         {% for vacancy in vacancies %}
-          <p>{{forloop.counter}}. {{ vacancy.name }} <br><a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a>{{ rating|crispy }}</p>
+          <p>{{forloop.counter}}. {{ vacancy.name }} <br>
+          <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a>
+          <form>
+                <input name="star" type="radio" class="star"/>
+                <input name="star" type="radio" class="star"/>
+                <input name="star" type="radio" class="star"/>
+                <input name="star" type="radio" class="star"/>
+                <input name="star" type="radio" class="star"/>           
+            </form><br/>
+          </p>
         {% empty %}
           <p>Скоро тут будет список вакансий для Вас!</p>
         {% endfor %}
@@ -75,4 +84,5 @@
     </div>
   </div>
 </div>
+
 {% endblock content %}

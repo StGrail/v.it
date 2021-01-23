@@ -41,6 +41,7 @@ def profile(request):
     experience = user_request[0]['experience']
     salary = user_request[0]['salary']
     without_salary = user_request[0]['without_salary']
+    
     if without_salary is False:
         vacanies_list = Vacancies.objects.filter(area=area,
                                                  experience=experience,
@@ -69,8 +70,8 @@ def profile(request):
     paginator = Paginator(vacanies_list, 10)
     page_number = request.GET.get('page')
     vacancies = paginator.get_page(page_number)
-    # for vacancy in vacanies_list:
-    #     print(vacancy['id'], user_id)
+    for vacancy in vacanies_list:
+        print(vacancy['id'], user_id)
     rating_form = Rating()
 
     context = {

@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Vacancies(models.Model):
     ''' Таблица в бд для всех вакансий с парсинга.'''
-    # users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User)  #  Сделать форейн ки на юзера
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
