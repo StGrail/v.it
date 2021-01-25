@@ -46,7 +46,7 @@
 
             <!-- Pagination -->
             {% if vacancies.paginator.num_pages > 1 %}
-            <div class="pagination">
+            <div class="pagination justify-content-center">
                 {% if vacancies.has_previous %}
                 <a class="btn btn-outline-dark btn-sm" href="?page=1">&laquo;</a>
                 <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.previous_page_number }}">&larr;</a>
