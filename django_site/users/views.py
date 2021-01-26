@@ -4,10 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 
-from recommendation.recommendation_services import recommendations
 from users.forms import UserCreationForm, UserChangeForm
-from .models import User, Vacancies, Rating
-from .services import profile_view
+from .models import User, Rating
+from .services import profile_view, remove_user_from_vacancy_relation
 
 
 def join(request):
@@ -42,11 +41,11 @@ def profile(request):
     paginator = Paginator(vacancies_list, 10)
     page_number = request.GET.get('page')
     vacancies = paginator.get_page(page_number)
-    rating = Rating.objects.filter(id=request.user.id).values('rating')[0]['rating']
+    # rating = Rating.objects.filter(id=request.user.id).values('rating')[0]['rating']
     context = {
         'title': 'Your profile',
         'vacancies': vacancies,
-        'rating': rating,
+        # 'rating': rating,
         'recommended_vacancies': recommended_vacancies,
     }
     return render(request, 'profile.html', context)
@@ -61,6 +60,8 @@ def edit_profile(request):
             edit_form.save()
             messages.success(request,
                              'Ваши данные были успешно изменены.')
+            user_request = User.objects.get(email=request.user)
+            remove_user_from_vacancy_relation(user_request)
             return redirect('profile')
     else:
         edit_form = UserChangeForm(instance=request.user)
@@ -71,4 +72,3 @@ def edit_profile(request):
     }
     return render(request, 'edit_profile.html', context)
 
-# Зачаток фукнции для обработки запроса с кнопочек-звездочек

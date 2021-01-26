@@ -2,8 +2,14 @@ from .models import Vacancies, User
 from recommendation.recommendation_services import recommendations
 
 
-def remove_user_id_from_vacancy_relation(user_id: int, vacancies_list: 'Queryset'):
-    pass
+def remove_user_from_vacancy_relation(user: 'class users.models.User'):
+    '''
+    Функция, которая удаляет связь пользователя с просмотренными им вакансиями в том случае, 
+    если пользователь изменил параметры поиска вакансий. 
+    '''
+    vacancies = Vacancies.objects.filter(shown_to_users=user)
+    for vacancy in vacancies:
+        vacancy.shown_to_users.remove(user)
 
 
 def update_shown_vacancy_to_user(user_id: int, vacancies_list: 'Queryset'):
@@ -14,8 +20,7 @@ def update_shown_vacancy_to_user(user_id: int, vacancies_list: 'Queryset'):
     user = User.objects.get(id=user_id)
     for vacancy in vacancies_list:
         vacancy = Vacancies.objects.get(id=vacancy['id'])
-        vacancy.shown_to_users = user
-        vacancy.save()
+        vacancy.shown_to_users.add(user)
 
 
 def profile_view(user_request: 'Queryset') -> 'Queryset':

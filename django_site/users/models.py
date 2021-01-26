@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Vacancies(models.Model):
     ''' Таблица в бд для всех вакансий с парсинга.'''
-    shown_to_users = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    shown_to_users = models.ManyToManyField(User)
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
