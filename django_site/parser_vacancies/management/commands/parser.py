@@ -11,12 +11,12 @@ import requests
 
 class Command(BaseCommand):
 
-    def get_request_data(self, url):
+    def get_request_data(self, url: str) -> dict:
         answer_hh = requests.get(url).text
         return json.loads(answer_hh)
 
 
-    def get_vacancy_data(self, id_vacancy, vacancy, contains_skills):
+    def get_vacancy_data(self, id_vacancy: int, vacancy: dict, contains_skills: bool) -> dict:
         '''
         Принмает на вход id вакансии, полное представление вакансии ввиде словаря, индикатор наличия скиллов.
         Возвращает словарь полей вакансии, которые будут записаны в таблицу vacancies БД.
@@ -42,7 +42,7 @@ class Command(BaseCommand):
         return vacancy_data
 
 
-    def save_vacancy_data_in_db(self, vacancy_data, skills_dict):
+    def save_vacancy_data_in_db(self, vacancy_data: dict, skills_dict: dict):
         '''
         Принимает на вход поля вакансии, подлежащие сохранению в БД в виде словаря
         Выполняет сохранение вакансии в БД
@@ -93,11 +93,11 @@ class Command(BaseCommand):
             
 
 
-    def processing_vacancies_in_page(self, short_vacancies):
+    def processing_vacancies_in_page(self, short_vacancies: dict):
         '''
-        Принимает на вход счетчик вакансий и словарь вакансий с страницы page.
-        Возвращает значения счетчика вакансий и список, содержащий строки столбцов и значений
-        SQL команды для записи в таблицу vacancies БД
+       Функция, которая принимает на вход словарь, содержащий 
+       вакансии в коротком представлении со страницы page, обрабатывает их
+       с помощью дополнительных функций и сохраняет в БД
         '''
         for short_vacancy in short_vacancies['items']:
             contains_skills = False
@@ -110,17 +110,15 @@ class Command(BaseCommand):
                 break
             vacancy = self.get_request_data(f'https://api.hh.ru/vacancies/{vacancy_id}')
             skills_dict, contains_skills = cv.is_skill_in_list(vacancy)
-            #if skills_dict:
-            #    contains_skills = True
             vacancy_data = self.get_vacancy_data(vacancy_id, vacancy, contains_skills)
             self.save_vacancy_data_in_db(vacancy_data, skills_dict)
 
 
     def handle(self, *args, **kwargs):
+        """Функция, запускающая парсер"""
         count_vacancies = 0
         print('Start vacancies parser')
         for page in range(config_parser.REQUEST_PAGE_COUNT):
             short_vacancies = self.get_request_data(f'{config_parser.REQUEST_URL}{page}')
-            count = self.processing_vacancies_in_page(short_vacancies)
-            count_vacancies += len(short_vacancies['items'])
+            self.processing_vacancies_in_page(short_vacancies)
         print('Vacancies parser complited')

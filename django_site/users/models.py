@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Vacancies(models.Model):
     ''' Таблица в бд для всех вакансий с парсинга.'''
-    users = models.ManyToManyField(User)  #  Сделать форейн ки на юзера
+    shown_to_users = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
@@ -58,7 +58,6 @@ class Vacancies(models.Model):
     url = models.CharField(max_length=100, blank=True)
     published = models.DateTimeField(blank=True)
     contains_skills = models.BooleanField(blank=True, null=True)
-    rating = models.IntegerField(blank=True, null=True)
 
     class Meta:
         app_label = 'users'
