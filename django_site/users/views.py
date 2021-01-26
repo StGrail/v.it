@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 from recommendation.recommendation_services import recommendations
-from users.forms import UserCreationForm, UserChangeForm, Rating
-from .models import User, Vacancies
+from users.forms import UserCreationForm, UserChangeForm
+from .models import User, Vacancies, Rating
 from .services import profile_view
 
 
@@ -37,15 +38,15 @@ def profile(request):
                                                                   'skills',
                                                                   'without_salary',
                                                                   )
-    vacanies_list, recommended_vacancies = profile_view(user_request)
-    paginator = Paginator(vacanies_list, 10)
+    vacancies_list, recommended_vacancies = profile_view(user_request)
+    paginator = Paginator(vacancies_list, 10)
     page_number = request.GET.get('page')
     vacancies = paginator.get_page(page_number)
-    rating_form = Rating()
+    rating = Rating.objects.filter(id=request.user.id).values('rating')[0]['rating']
     context = {
         'title': 'Your profile',
         'vacancies': vacancies,
-        'rating': rating_form,
+        'rating': rating,
         'recommended_vacancies': recommended_vacancies,
     }
     return render(request, 'profile.html', context)
@@ -70,8 +71,4 @@ def edit_profile(request):
     }
     return render(request, 'edit_profile.html', context)
 
-#Зачаток фукнции для обработки запроса с кнопочек-звездочек
-# def processing_rating(request):
-#     if request.method == 'GET':
-#         rating = request.GET['rating']
-        
+# Зачаток фукнции для обработки запроса с кнопочек-звездочек

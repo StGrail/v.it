@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
@@ -67,14 +68,15 @@ class Vacancies(models.Model):
         return self.id_vacancy
 
 
-# class Rating(models.Model):
-#     CHOISES = (
-#         (1, 'Больше не показывать'),
-#         (2, '2'),
-#         (3, '4'),
-#         (4, '5'),
-#         (5, '5'),
-#     )
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-#     vacancy_id = models.ForeignKey(Vacancies.objects.filter(id_vacancy_id='id_vacancy'))
-#     rating = models.IntegerField(choices=CHOISES, blank=True)
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    vacancy = models.ForeignKey(Vacancies, on_delete=models.CASCADE, blank=True, null=True)
+    rating = models.IntegerField(default=0,
+                                 validators=[
+                                     MaxValueValidator(5),
+                                     MinValueValidator(0),
+                                 ]
+                                 )
+
+    def __str__(self):
+        return str(self.pk)

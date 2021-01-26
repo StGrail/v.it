@@ -14,9 +14,9 @@
     <link href="{% static 'css/footer.css' %}" rel="stylesheet">
 
     <!-- Rating stars-->
-    <link href="{% static 'css/jquery.rating.css' %}" rel="stylesheet">
-    <script src="{% static 'jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'jquery/jquery.rating.js' %}"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
 
     {% if title %}
     <title>V.it | {{ title }}</title>
@@ -98,10 +98,23 @@
     </div>
 </footer>
 
-
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<!--Stars-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/rating_stars.js' %}"></script>
+
+<!--Stars alert-->
+<script>
+  $(function(){
+    $('input').on('change', function(){
+      alert("Changed: " + $(this).val())
+    });
+  });
+</script>
 
 <!-- Highlight current page on NavBar -->
 <script>
@@ -110,8 +123,6 @@
             return this.href === location.href;
         }).addClass('active');
     });
-
-
 </script>
 </body>
 
