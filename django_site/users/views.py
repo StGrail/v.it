@@ -76,11 +76,12 @@ def edit_profile(request):
     }
     return render(request, 'edit_profile.html', context)
 
+
 @login_required
 @require_http_methods(["POST"])
 @csrf_exempt
 def rate_vacancy(request):
-    rating = request.POST.get('rating')
+    rating = request.POST.get('rate')
     vacancy = Vacancies.objects.get(pk=request.POST.get('vacancy'))
     user = User.objects.get(pk=request.user.id)
     rating_qs = Rating.objects.filter(user=user, vacancy=vacancy)
@@ -90,6 +91,3 @@ def rate_vacancy(request):
     else:
         rating_qs.update(rating=rating)
     return HttpResponse()
-
-
-

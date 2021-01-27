@@ -27,12 +27,12 @@
             <h5 class="card-title">Вакансии по вашему запросу:</h5>
             <p class="card-text">
                 {% for vacancy in vacancies %}
-                <!-- если рейтинг уже поставлен, то валуе==рейтинг -->
+            <!--data-clearable-icon="fa-trash-o" добавить ведро для бана-->
             <p>{{ forloop.counter }}. {{ vacancy.name }} <input type="number" name="rating" id="{{ vacancy.id }}"
                                                                 class="rating" data-clearable="" data-icon-lib="fa"
                                                                 data-active-icon="fa-star"
-                                                                data-inactive-icon="fa-star-o"
-                                                                data-clearable-icon="fa-trash-o" data-inline value="{{ vacancy.rating }}"/><br/>
+                                                                data-inactive-icon="fa-star-o" data-inline
+                                                                value="{{ vacancy.rating }}"/><br/>
                 <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
             {% empty %}
             <p>Скоро тут будет список вакансий для Вас!</p>
