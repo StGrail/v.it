@@ -80,7 +80,8 @@ def edit_profile(request):
 @require_http_methods(["POST"])
 @csrf_exempt
 def rate_vacancy(request):
-    rating = request.POST.get('rating')
+    rating = request.POST.get('rate')
+    print(rating)
     vacancy = Vacancies.objects.get(pk=request.POST.get('vacancy'))
     user = User.objects.get(pk=request.user.id)
     rating_qs = Rating.objects.filter(user=user, vacancy=vacancy)
