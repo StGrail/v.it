@@ -10,7 +10,7 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     ''' Таблица для юзеров.'''
-    additional_skills = 'Через зарятую укажите дополнительные технологии, '
+    additional_skills = 'Через запятую укажите дополнительные технологии, '
     additional_skills += 'с которыми у вас есть опыт работы.'
     text = 'Многие работодатели не указывают уровень зп, показывать такие вакансии?'
     city = (

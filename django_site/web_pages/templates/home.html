@@ -2,140 +2,81 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-3">
-    <div class="card mb-3">
-        <h3 class="card-header">Card header</h3>
+<div class="col">
+    <div class="card bg-light mb-4" style="max-width: 20rem;">
+        <div class="card-header">Резюме и ...</div>
         <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+            <h5 class="card-title">
+                <ul class="list">
+                    <li class="list-item"><h5>Составляем резюме для ИТ-специалиста, инструкция от hh.ru</h5><a
+                            class="btn btn-secondary btn-m" href="https://hh.ru/article/301506"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">Резюме от hh</a><br/>
+                    </li>
+                    <li class="list-item"><h5>Из юниоров в разработчики: получаем первую работу</h5><a
+                            class="btn btn-secondary btn-m" href="https://m.habr.com/ru/post/308104/"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">Войти в АйТи</a><br/>
+                    </li>
+                    <li class="list-item"><h5>Ну и что-то более полезное.<br/>Курс по структурам данных и алгоритмы на курсере</h5><a
+                            class="btn btn-secondary btn-m"
+                            href="https://www.coursera.org/specializations/data-structures-algorithms"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">Алгоритмы</a><br/>
+                    </li>
+                </ul>
+            </h5>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-          <rect width="100%" height="100%" fill="#868e96"></rect>
-          <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-        <div class="card-footer text-muted">
-          2 days ago
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Card title</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
+    </div>
 </div>
 <div class="col-6">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title text-center">{{ headline }}</h4>
-            <p class="card-text">Blablabla
-                <div class="card mb-3">
-                    <h3 class="card-header">Card header</h3>
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                      <rect width="100%" height="100%" fill="#868e96"></rect>
-                      <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                    </svg>
-                    <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                    <div class="card-body">
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                      2 days ago
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title">Card title</h4>
-                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                  </div>
-            </p>
-        </div>
-      </div>
-</div>
-<div class="col-3">
-    <div class="card mb-3">
-        <h3 class="card-header">Card header</h3>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-          <rect width="100%" height="100%" fill="#868e96"></rect>
-          <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-        <div class="card-footer text-muted">
-          2 days ago
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Card title</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-</div>
-<div class="row">
-    <div class="container"></div>
-</div>
-
-<!-- <div class="col-3"></div>
-<div class="col-6">
-    <div class="jumbotron">
-        <h1 class="display-3">Hello, world!</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <div class="jumbotron mt-auto">
+        <h3 class="display-5">Hello, world!</h3>
+        <p class="lead">Этот сайт поможет Вам V.it в айти.</p>
+        <p>Пройдите регистрацию, введите стек с которым вы успели уже поработать и получите самые свежие Python-вакансии
+            с сайта <a href="hh.ru">hh.ru</a>.</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p>Авторская система рекомендаций, найдёт для вас похожие вакансии. Выставляйте оценки и увеливайте точность
+            подбора вакансий.</p>
+        <p class="text-muted">Ближайшие обновления:<br/> - тг-бот для моментального оповещания о новых вакансиях;<br/>
+            - поиск вакансий на других платформах.</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <a class="btn btn-secondary btn-lg" href="{% url 'join' %}" role="button">Регистрация</a>
         </p>
     </div>
 </div>
-<div class="col-3"></div> -->
+<div class="col">
+    <div class="card bg-light mb-4" style="max-width: 20rem;">
+        <div class="card-header">Полезная информация</div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <ul class="list">
+                    <li class="list-item"><h5>Статья на хабре про переход в IT из других отраслей</h5><a
+                            class="btn btn-secondary btn-m" href="https://habr.com/ru/post/479352/"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">Войти в IT</a><br/>
+                    </li>
+                    <li class="list-item"><h5>Статья на хабре про вайтишников в целом</h5><a
+                            class="btn btn-secondary btn-m" href="https://habr.com/ru/post/306880/"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">Войти в АйТи</a><br/>
+                    </li>
+                    <li class="list-item"><h5>Ну и что-то более полезное.<br/>Курс по CS от Гарварда</h5><a
+                            class="btn btn-secondary btn-m"
+                            href="https://www.edx.org/course/cs50s-introduction-to-computer-science"
+                            target="_blank"
+                            rel="noopener noreferrer" role="button">CS50</a><br/>
+                    </li>
+                </ul>
+            </h5>
+        </div>
+    </div>
+
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe id="cartoonVideo" class="embed-responsive-item" width="560" height="315"
+                src="//www.youtube.com/embed/-FZg0C84i-c" allowfullscreen></iframe>
+    </div>
+</div>
+
 
 {% endblock content %}
