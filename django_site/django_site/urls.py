@@ -45,4 +45,5 @@ urlpatterns = [
          name='password_reset_complete'),
     path('profile/', user_views.profile, name='profile'),
     path('edit_profile/', user_views.edit_profile, name='edit_profile'),
+    path('rate_vacancy/', user_views.rate_vacancy, name='rate_vacancy')
 ]

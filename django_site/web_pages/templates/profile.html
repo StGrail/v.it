@@ -28,21 +28,12 @@
             <p class="card-text">
                 {% for vacancy in vacancies %}
                 <!-- если рейтинг уже поставлен, то валуе==рейтинг -->
-                {% if rating != null %}
             <p>{{ forloop.counter }}. {{ vacancy.name }} <input type="number" name="rating" id="{{ vacancy.id }}"
                                                                 class="rating" data-clearable="" data-icon-lib="fa"
                                                                 data-active-icon="fa-star"
                                                                 data-inactive-icon="fa-star-o"
-                                                                data-clearable-icon="fa-trash-o" data-inline value="{{ rating }}"/><br/>
+                                                                data-clearable-icon="fa-trash-o" data-inline value="{{ vacancy.rating }}"/><br/>
                 <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
-            {% else %}
-            <p>{{ forloop.counter }}. {{ vacancy.name }} <input type="number" name="rating" id="rating-inline"
-                                                                class="rating" data-clearable="" data-icon-lib="fa"
-                                                                data-active-icon="fa-star"
-                                                                data-inactive-icon="fa-star-o"
-                                                                data-clearable-icon="fa-trash-o" data-inline value="0"/><br/>
-                <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
-            {% endif %}
             {% empty %}
             <p>Скоро тут будет список вакансий для Вас!</p>
             {% endfor %}

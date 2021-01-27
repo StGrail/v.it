@@ -132,6 +132,7 @@
   var Plugin = $.fn.rating = function(options) {
     return this.filter('input[type=number]').each(function() {
       var $input = $(this);
+      var vacId = $(this).attr('id')
       var optionsObject = typeof options === 'object' && options || {};
       var rating = new Rating($input, optionsObject);
       if (!rating.options.readonly) {
@@ -144,6 +145,7 @@
           })
           .on('click', starSelector(), function() {
             rating.setValue($(this).data('value'));
+            $.post('/rate_vacancy/', {'rate': $(this).data('value'), 'vacancy': vacId})
           })
           .on('click', clearSelector, function() {
             rating.clear();
