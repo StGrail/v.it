@@ -39,7 +39,7 @@
             <p class="card-text">
                 {% for vacancy in vacancies %}
                 <!--data-clearable-icon="fa-trash-o" добавить ведро для бана-->
-            <p>{{ forloop.counter }}. {{ vacancy.name }} <input type="number" name="rating" id="{{ vacancy.id }}"
+            <p>{{ forloop.counter }}. {{ vacancy.name }} <br/><input type="number" name="rating" id="{{ vacancy.id }}"
                                                                 class="rating" data-clearable="" data-icon-lib="fa"
                                                                 data-active-icon="fa-star"
                                                                 data-inactive-icon="fa-star-o" data-inline

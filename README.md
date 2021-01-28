@@ -9,6 +9,8 @@
 ```
 git clone https://github.com/StGrail/v_it.git
 cd v_it
+python3 -m venv django
+source django/bin/activate
 pip3 install -r requirements.txt
 cd django_site
 ```
@@ -24,9 +26,11 @@ PG_PASSWORD = Пароль базы данных
 EMAIL_USER = Имейл для восстановления пароля
 EMAIL_PASSWORD = Пароль к имейлу
 ```
-### Наполните базу данных
+### Наполните базу данных и создайте суперюзера
 ```
-python3 manage.py parser
+python manage.py migrate
+python manage.py parser
+python manage.py createsuperuser
 ```
 Дождитесь, пока таблицы заполнятся вакансиями.
 
