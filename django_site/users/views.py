@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 
-from users.forms import UserCreationForm, UserChangeForm
+from .forms import UserCreationForm, UserChangeForm
 from .models import User, Rating, Vacancies
 from .services import profile_view, remove_user_from_vacancy_relation
 
