@@ -1,0 +1,30 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <div class="row mb-3 mt-3">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <h2 class="display-5 text-center">Hello, world!</h2>
+                <p class="lead">Этот сайт поможет Вам V.it в айти.</p>
+                Пройдите регистрацию, введите стек с которым Вы успели уже поработать и получите самые свежие
+                Python-вакансии с сайта <a href="hh.ru">hh.ru</a>.
+                <hr class="my-4">
+                <p>Авторская система рекомендаций, найдёт для вас похожие вакансии. Выставляйте оценки и
+                    увеливайте
+                    точность
+                    подбора вакансий.</p>
+                <p class="text-muted">Ближайшие обновления:<br/> - тг-бот для моментального оповещания о новых
+                    вакансиях;<br/>
+                    - поиск вакансий на других платформах.</p>
+                <p class="lead text-center my-4">
+                    <a class="btn btn-secondary btn-lg" href="{% url redirect %}" role="button">{{ button }}</a>
+                </p>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

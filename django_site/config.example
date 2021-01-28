@@ -1,0 +1,6 @@
+DJANGO_SECRET_KEY = DJANGO_SECRET_KEY
+PG_USER = Пользователь базы данных
+PG_PASSWORD = Пароль базы данных
+
+EMAIL_USER = Имейл для восстановления пароля
+EMAIL_PASSWORD = Пароль к имейлу
