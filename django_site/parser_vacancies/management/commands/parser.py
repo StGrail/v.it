@@ -12,8 +12,12 @@ import requests
 class Command(BaseCommand):
 
     def get_request_data(self, url: str) -> dict:
-        answer_hh = requests.get(url).text
-        return json.loads(answer_hh)
+        try:
+            answer_hh = requests.get(url)
+            answer_hh.raise_for_status()
+        except(requests.RequestException):
+            print('Network error')
+        return json.loads(answer_hh.text)
 
 
     def get_vacancy_data(self, id_vacancy: int, vacancy: dict, contains_skills: bool) -> dict:
