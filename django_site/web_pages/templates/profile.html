@@ -18,6 +18,17 @@
             </div>
         </div>
     </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted">
+                    Если вакансия совсем не подходят под Ваши критерии, то ставьте одну звездочку и больше Вы ее
+                    больше
+                    не увидите.
+                </small>
+            </p>
+        </div>
+    </div>
 </div>
 
 <!-- Middle block with list of vacancies -->
@@ -27,7 +38,7 @@
             <h5 class="card-title">Вакансии по вашему запросу:</h5>
             <p class="card-text">
                 {% for vacancy in vacancies %}
-            <!--data-clearable-icon="fa-trash-o" добавить ведро для бана-->
+                <!--data-clearable-icon="fa-trash-o" добавить ведро для бана-->
             <p>{{ forloop.counter }}. {{ vacancy.name }} <input type="number" name="rating" id="{{ vacancy.id }}"
                                                                 class="rating" data-clearable="" data-icon-lib="fa"
                                                                 data-active-icon="fa-star"
@@ -78,6 +89,15 @@
                 Укажите дополнительные технологии, с которыми у Вас есть опыт работы и мы сможем подобрать схожие
                 вакансии.
                 {% endfor %}
+            </p>
+        </div>
+    </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted">
+                    Оценивая вакансию, вы помогаете находить для Вас наиболее подходящие вакансии.
+                </small>
             </p>
         </div>
     </div>
