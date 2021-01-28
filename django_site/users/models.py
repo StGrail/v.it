@@ -49,7 +49,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Vacancies(models.Model):
     ''' Таблица в бд для всех вакансий с парсинга.'''
-    shown_to_users = models.ManyToManyField(User)
+    shown_to_users = models.ManyToManyField(User, related_name='shown_vacancies')
+    banned_by_users = models.ManyToManyField(User, related_name='banned_vacancies')
     id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)

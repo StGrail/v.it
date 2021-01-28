@@ -39,17 +39,19 @@ def profile_view(user_request: 'Queryset') -> 'Queryset':
                                                   experience=experience,
                                                   salary_from__lte=salary,
                                                   salary_to__gte=salary,
-                                                  ).values('name',
-                                                           'url',
-                                                           'id',
-                                                           ).order_by('-published')
+                                                  ).exclude(banned_by_users=user_id,
+                                                            ).values('name',
+                                                                     'url',
+                                                                     'id',
+                                                                     ).order_by('-published')
     else:
         vacancies_list = Vacancies.objects.filter(area=area,
                                                   experience=experience,
-                                                  ).values('name',
-                                                           'url',
-                                                           'id',
-                                                           ).order_by('-published')
+                                                  ).exclude(banned_by_users=user_id,
+                                                            ).values('name',
+                                                                     'url',
+                                                                     'id',
+                                                                     ).order_by('-published')
     update_shown_vacancy_to_user(user_id, vacancies_list)
     recommended_vacancies_id = recommendations(user_request)
     if recommended_vacancies_id:
@@ -58,3 +60,4 @@ def profile_view(user_request: 'Queryset') -> 'Queryset':
     else:
         recommended_vacancies = None
     return vacancies_list, recommended_vacancies
+
