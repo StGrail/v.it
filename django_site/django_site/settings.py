@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
-from . import config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config.DJANGO_SECRET_KEY
+SECRET_KEY = str(os.getenv('DJANGO_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG_MODE')
 
 ALLOWED_HOSTS = []
 
@@ -40,8 +43,9 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
-    'users',
     'web_pages',
+    'users',
+    'vacancies',
     'parser_vacancies',
     'recommendation',
 ]
@@ -82,9 +86,9 @@ WSGI_APPLICATION = 'django_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config.DB_NAME,
-        'USER': config.PG_USER,
-        'PASSWORD': config.PG_PASSWORD,
+        'NAME': str(os.getenv('DB_NAME')),
+        'USER': str(os.getenv('PG_USER')),
+        'PASSWORD': str(os.getenv('PG_PASSWORD')),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -133,9 +137,9 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config.EMAIL_HOST
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config.EMAIL_USER
-EMAIL_HOST_PASSWORD = config.EMAIL_PASSWORD
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

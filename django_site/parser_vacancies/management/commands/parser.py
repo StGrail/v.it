@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
-from users.models import Vacancies
+from vacancies.models import Vacancies
 from parser_vacancies.management.commands import checking_vacancy_for_skills as cv
 from parser_vacancies.management.commands import config_parser
 from parser_vacancies.models import Skills
@@ -125,4 +125,4 @@ class Command(BaseCommand):
         for page in range(config_parser.REQUEST_PAGE_COUNT):
             short_vacancies = self.get_request_data(f'{config_parser.REQUEST_URL}{page}')
             self.processing_vacancies_in_page(short_vacancies)
-        print('Vacancies parser complited')
+        print('Vacancies parser completed')

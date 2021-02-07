@@ -1,22 +1,23 @@
-from .models import Vacancies, User
+from users.models import User
+from vacancies.models import Vacancies
 from recommendation.recommendation_services import recommendations
 
 
 def remove_user_from_vacancy_relation(user: 'class users.models.User'):
-    '''
-    Функция, которая удаляет связь пользователя с просмотренными им вакансиями в том случае, 
-    если пользователь изменил параметры поиска вакансий. 
-    '''
+    """
+    Функция, которая удаляет связь пользователя с просмотренными им вакансиями в том случае,
+    если пользователь изменил параметры поиска вакансий.
+    """
     vacancies = Vacancies.objects.filter(shown_to_users=user)
     for vacancy in vacancies:
         vacancy.shown_to_users.remove(user)
 
 
 def update_shown_vacancy_to_user(user_id: int, vacancies_list: 'Queryset'):
-    '''
+    """
     Функция, которая сохраняет в БД данные о вакансиях, показанных конкретному
     пользователю
-    '''
+    """
     user = User.objects.get(id=user_id)
     for vacancy in vacancies_list:
         vacancy = Vacancies.objects.get(id=vacancy['id'])
@@ -24,10 +25,10 @@ def update_shown_vacancy_to_user(user_id: int, vacancies_list: 'Queryset'):
 
 
 def profile_view(user_request: 'Queryset') -> 'Queryset':
-    '''
+    """
     Функция, которая производит обработку данных пользователя и выборку из БД
     вакансий для конкретного пользователя
-    '''
+    """
     user_id = user_request[0]['id']
     area = user_request[0]['area']
     experience = user_request[0]['experience']
