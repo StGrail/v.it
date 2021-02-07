@@ -19,8 +19,8 @@ class Vacancies(models.Model):
     published = models.DateTimeField(blank=True)
     contains_skills = models.BooleanField(blank=True, null=True)
 
-    def __repr__(self):
-        return self.id_vacancy
+    def __str__(self):
+        return f'{self.name}, {self.area}'
 
 
 class Rating(models.Model):
@@ -30,8 +30,7 @@ class Rating(models.Model):
                                  validators=[
                                      MaxValueValidator(5),
                                      MinValueValidator(0),
-                                 ]
-                                 )
+                                 ])
 
-    def __str__(self):
-        return str(self.pk)
+    def __repr__(self):
+        return self.rating
