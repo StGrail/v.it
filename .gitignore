@@ -131,4 +131,3 @@ dmypy.json
 # Some stuff
 .idea
 .vscode
-django_site/django_site/config.py
