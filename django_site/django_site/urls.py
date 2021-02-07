@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
+from api.routers import router
 from users import views as user_views
 from recommendation import views as recommendation_views
 
@@ -47,3 +48,5 @@ urlpatterns = [
     path('edit_profile/', user_views.edit_profile, name='edit_profile'),
     path('rate_vacancy/', user_views.rate_vacancy, name='rate_vacancy')
 ]
+
+urlpatterns += router.urls
