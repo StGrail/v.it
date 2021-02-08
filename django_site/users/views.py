@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -10,7 +9,7 @@ from vacancies.models import Vacancies, Rating
 
 from .forms import UserCreationForm, UserChangeForm
 from .models import User
-from .services import profile_view, remove_user_from_vacancy_relation
+from .services import profile_view, remove_user_from_vacancy_relation, pagination, stars_rating
 
 
 class JoinForm(View):
@@ -72,12 +71,13 @@ def profile(request):
                                                                   'without_salary',
                                                                   )
     vacancies_list, recommended_vacancies = profile_view(user_request)
+    page_number = request.GET.get('page')
+    vacancies = pagination(vacancies_list, page_number)
+
     for item in vacancies_list:
         rating_qs = Rating.objects.filter(user=request.user.id, vacancy=item['id']).values('rating')
         item["rating"] = rating_qs[0]['rating'] if rating_qs else 0
-    paginator = Paginator(vacancies_list, 10)
-    page_number = request.GET.get('page')
-    vacancies = paginator.get_page(page_number)
+
     context = {
         'title': 'Your profile',
         'vacancies': vacancies,
@@ -95,12 +95,5 @@ def rate_vacancy(request):
     rating = request.POST.get('rate')
     vacancy = Vacancies.objects.get(pk=request.POST.get('vacancy'))
     user = User.objects.get(pk=request.user.id)
-    if rating == '1':
-        vacancy.banned_by_users.add(user)
-    rating_qs = Rating.objects.filter(user=user, vacancy=vacancy)
-    if not rating_qs:
-        rating = Rating(user=user, vacancy=vacancy, rating=rating)
-        rating.save()
-    else:
-        rating_qs.update(rating=rating)
+    stars_rating(rating, vacancy, user)
     return HttpResponse()
