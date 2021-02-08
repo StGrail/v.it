@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from vacancies.models import Vacancies, Rating
@@ -12,23 +13,51 @@ from .models import User
 from .services import profile_view, remove_user_from_vacancy_relation
 
 
-def join(request):
-    """ Регистрации юзера с последующим редиректом на страницу логина."""
+class JoinForm(View):
+    """ Регистрации юзера с последующим редиректом на страницу логина. """
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    form_class = UserCreationForm
+    template_name = 'join.html'
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'title': 'Join', 'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Вы были успешно зарегистрированы.')
             return redirect('login')
-    else:
-        form = UserCreationForm()
+        else:
+            form = self.form_class()
 
-    context = {
-        'title': 'Join',
-        'form': form,
-    }
-    return render(request, 'join.html', context)
+        return render(request, self.template_name, {'form': form})
+
+
+class EditProfile(View):
+    """ Изменение данных профиля в лк. """
+
+    form_class = UserChangeForm
+    template_name = 'edit_profile.html'
+
+    def get(self, request):
+        form = self.form_class(instance=request.user)
+        return render(request, self.template_name, {'title': 'Edit', 'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ваши данные были успешно изменены.')
+            user_request = User.objects.get(email=request.user)
+            remove_user_from_vacancy_relation(user_request)
+            return redirect('profile')
+        else:
+            form = self.form_class(instance=request.user)
+
+        return render(request, self.template_name, {'form': form})
 
 
 @login_required
@@ -55,29 +84,6 @@ def profile(request):
         'recommended_vacancies': recommended_vacancies,
     }
     return render(request, 'profile.html', context)
-
-
-@login_required
-def edit_profile(request):
-    """ Изменение данных профиля в лк."""
-
-    if request.method == 'POST':
-        edit_form = UserChangeForm(request.POST, instance=request.user)
-        if edit_form.is_valid():
-            edit_form.save()
-            messages.success(request,
-                             'Ваши данные были успешно изменены.')
-            user_request = User.objects.get(email=request.user)
-            remove_user_from_vacancy_relation(user_request)
-            return redirect('profile')
-    else:
-        edit_form = UserChangeForm(instance=request.user)
-
-    context = {
-        'title': 'Edit',
-        'edit_form': edit_form,
-    }
-    return render(request, 'edit_profile.html', context)
 
 
 @login_required
