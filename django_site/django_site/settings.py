@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+import django_heroku
 
 load_dotenv()
 
@@ -177,3 +178,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
