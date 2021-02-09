@@ -105,7 +105,7 @@ DATABASES = {
         'USER': str(os.getenv('PG_USER')),
         'PASSWORD': str(os.getenv('PG_PASSWORD')),
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': 5432,
     }
 }
 
