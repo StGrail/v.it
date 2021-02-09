@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django_filters',
     'social_django',
     'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
 
     'web_pages',
     'users',
