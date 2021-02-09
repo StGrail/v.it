@@ -29,7 +29,7 @@ SECRET_KEY = str(os.getenv('DJANGO_SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG_MODE')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application definition
 
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'social_django',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
 
     'web_pages',
     'users',
@@ -62,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -142,6 +146,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+WHITENOISE_USE_FINDERS = True
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = 'home'
@@ -149,7 +157,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 # DRF json only
-
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
