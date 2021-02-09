@@ -14,17 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.conf.urls import url
+from django.urls import path, include
 
+from api.routers import router
 from users import views as user_views
-from recommendation import views as recommendation_views
-
+from users.views import JoinForm, EditProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('web_pages.urls')),
-    path('join/', user_views.join, name='join'),
+    path('join/', JoinForm.as_view(template_name='join.html'), name='join'),
+    path('edit_profile/',
+         login_required(EditProfile.as_view(template_name='edit_profile.html')),
+         name='edit_profile'),
     path('login/',
          auth_views.LoginView.as_view(template_name='login.html'),
          name='login'),
@@ -44,6 +49,8 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
     path('profile/', user_views.profile, name='profile'),
-    path('edit_profile/', user_views.edit_profile, name='edit_profile'),
-    path('rate_vacancy/', user_views.rate_vacancy, name='rate_vacancy')
+    path('rate_vacancy/', user_views.rate_vacancy, name='rate_vacancy'),
+    url('', include('social_django.urls', namespace='social'))
 ]
+
+urlpatterns += router.urls
