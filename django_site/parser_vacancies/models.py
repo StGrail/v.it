@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import Vacancies
+from vacancies.models import Vacancies
 
 
 class Skills(models.Model):

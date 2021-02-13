@@ -1,12 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django import forms
 from django.forms import ModelForm
 
-from .models import User, Vacancies
+from .models import User
 
 
 class UserCreationForm(UserCreationForm):
-    ''' Форма создания пользователя.'''
+    """ Форма создания пользователя."""
+
     class Meta(UserCreationForm):
         model = User
         fields = [
@@ -20,7 +20,8 @@ class UserCreationForm(UserCreationForm):
 
 
 class UserChangeForm(ModelForm):
-    ''' Форма изменения данных пользователя.'''
+    """ Форма изменения данных пользователя."""
+
     class Meta(UserChangeForm):
         model = User
         fields = [
