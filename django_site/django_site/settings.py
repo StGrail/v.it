@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
 import django_heroku
 
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
-    'social_django',
+    # 'social_django',
     'whitenoise.runserver_nostatic',
 
     'web_pages',
@@ -69,7 +70,7 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -146,9 +147,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-WHITENOISE_USE_FINDERS = True
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WHITENOISE_USE_FINDERS = True
+# Пробую запустить статику на хероку
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -170,7 +171,6 @@ REST_FRAMEWORK = {
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Email credentials
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_PORT = 587
@@ -181,3 +181,10 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'redis'
+CELERY_TIMEZONE = 'UTC'

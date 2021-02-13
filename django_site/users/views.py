@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from vacancies.models import Vacancies, Rating
 
+from vacancies.models import Vacancies, Rating
 from .forms import UserCreationForm, UserChangeForm
 from .models import User
 from .services import profile_view, remove_user_from_vacancy_relation, pagination, stars_rating
