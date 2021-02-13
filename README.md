@@ -9,25 +9,29 @@
 ```
 git clone https://github.com/StGrail/v_it.git
 cd v_it
-python3 -m venv django
-source django/bin/activate
+python3 -m venv env
+source env/bin/activate
 pip3 install -r requirements.txt
-cd django_site
 ```
 
 ### Выполните настройку
-Переименуйте файл config.example в config.py и замените  следующие данные:
+Переименуйте файл env.example в .env и замените  следующие данные:
 ```
 DJANGO_SECRET_KEY = DJANGO_SECRET_KEY
+DEBUG_MODE = False (или True, если хотите включить режим дебагга)
 
+DB_NAME = Название базы данных
 PG_USER = Пользователь базы данных
 PG_PASSWORD = Пароль базы данных
+ip=localhost
 
-EMAIL_USER = Имейл для восстановления пароля
-EMAIL_PASSWORD = Пароль к имейлу
+EMAIL_HOST = SMTP сервер
+EMAIL_HOST_USER = Имейл для восстановления пароля
+EMAIL_HOST_PASSWORD = Пароль к имейлу
 ```
 ### Наполните базу данных и создайте суперюзера
 ```
+cd django_site
 python manage.py migrate
 python manage.py parser
 python manage.py createsuperuser
