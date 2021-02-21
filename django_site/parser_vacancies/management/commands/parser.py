@@ -1,11 +1,15 @@
+import json
+import re
+
 from django.core.management.base import BaseCommand
+from django.db import DatabaseError
 from django.db.utils import IntegrityError
 from vacancies.models import Vacancies
 from parser_vacancies.management.commands import checking_vacancy_for_skills as cv
 from parser_vacancies.management.commands import config_parser
 from parser_vacancies.models import Skills
 
-import json
+
 import requests
 
 
@@ -19,6 +23,16 @@ class Command(BaseCommand):
             print('Network error')
         return json.loads(answer_hh.text)
 
+
+    def check_vacancies_table(self):
+        vacancies_count = Vacancies.objects.filter().count()
+        if vacancies_count:
+            print('Vacancies count in database: ' ,vacancies_count)
+            url_to_parser = config_parser.REQUEST_URL_PERIOD
+            return url_to_parser
+        print('Database is empty')
+        url_to_parser = config_parser.REQUEST_URL
+        return url_to_parser
 
     def get_vacancy_data(self, id_vacancy: int, vacancy: dict, contains_skills: bool) -> dict:
         '''
@@ -96,6 +110,21 @@ class Command(BaseCommand):
             row_vacancy_skills.save()
             
 
+    def check_vacancy_name(self, vacancy_name: str) -> bool:
+        '''
+        Фукнция, которая проверяет название вакансии на предмет
+        наличия слов, которые показывают, что вакансия не имеет отношения 
+        к python
+        '''
+        vacancy_name = vacancy_name.lower()
+        vacancy_name = re.split(r'[\.\s\(\):,-/]+', vacancy_name)
+        if 'python' in vacancy_name:
+            return True
+        for word in vacancy_name:
+            if word in config_parser.NOT_PYTHON:
+                return False
+        return True
+
 
     def processing_vacancies_in_page(self, short_vacancies: dict):
         '''
@@ -109,9 +138,13 @@ class Command(BaseCommand):
                 continue
             try:
                 vacancy_id = short_vacancy['id']
+                vacancy_name = short_vacancy['name']
             except KeyError:
                 print('Глубина выборки не более 2000 вакансий')
                 break
+            is_python_vacancy = self.check_vacancy_name(vacancy_name)
+            if not is_python_vacancy:
+                continue
             vacancy = self.get_request_data(f'https://api.hh.ru/vacancies/{vacancy_id}')
             skills_dict, contains_skills = cv.is_skill_in_list(vacancy)
             vacancy_data = self.get_vacancy_data(vacancy_id, vacancy, contains_skills)
@@ -120,9 +153,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         """Функция, запускающая парсер"""
-        count_vacancies = 0
         print('Start vacancies parser')
+        url_to_parser = self.check_vacancies_table()
         for page in range(config_parser.REQUEST_PAGE_COUNT):
-            short_vacancies = self.get_request_data(f'{config_parser.REQUEST_URL}{page}')
+            print(f'Used query: {url_to_parser}{page}')
+            short_vacancies = self.get_request_data(f'{url_to_parser}{page}')
             self.processing_vacancies_in_page(short_vacancies)
         print('Vacancies parser completed')
