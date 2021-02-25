@@ -182,7 +182,7 @@ django_heroku.settings(locals())
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND = 'redis'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 CELERY_TIMEZONE = 'UTC'
 
 
