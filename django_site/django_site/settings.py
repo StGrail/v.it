@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
-    'social_django',
 
     'web_pages',
     'users',
@@ -65,12 +64,9 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GITHUB_KEY = str(os.getenv('SOCIAL_AUTH_GITHUB_KEY'))
-SOCIAL_AUTH_GITHUB_SECRET = str(os.getenv('SOCIAL_AUTH_GITHUB_SECRET'))
 
 ROOT_URLCONF = 'django_site.urls'
 
@@ -159,8 +155,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Social auth
-SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Email credentials
 
