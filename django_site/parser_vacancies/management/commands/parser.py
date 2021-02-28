@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from django.db import DatabaseError
 from django.db.utils import IntegrityError
 from vacancies.models import Vacancies
+from parser_vacancies.management.commands import checking_vacancies_count as cvc
 from parser_vacancies.management.commands import checking_vacancy_for_skills as cv
 from parser_vacancies.management.commands import config_parser
 from parser_vacancies.models import Skills
@@ -23,16 +24,6 @@ class Command(BaseCommand):
             print('Network error')
         return json.loads(answer_hh.text)
 
-
-    def check_vacancies_table(self):
-        vacancies_count = Vacancies.objects.filter().count()
-        if vacancies_count:
-            print('Vacancies count in database: ' ,vacancies_count)
-            url_to_parser = config_parser.REQUEST_URL_PERIOD
-            return url_to_parser
-        print('Database is empty')
-        url_to_parser = config_parser.REQUEST_URL
-        return url_to_parser
 
     def get_vacancy_data(self, id_vacancy: int, vacancy: dict, contains_skills: bool) -> dict:
         '''
@@ -154,9 +145,15 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         """Функция, запускающая парсер"""
         print('Start vacancies parser')
-        url_to_parser = self.check_vacancies_table()
+        url_to_parser, vacancies_count_before_adding = cvc.check_vacancies_table()
         for page in range(config_parser.REQUEST_PAGE_COUNT):
             print(f'Used query: {url_to_parser}{page}')
             short_vacancies = self.get_request_data(f'{url_to_parser}{page}')
+            if not short_vacancies['items']:
+                break
             self.processing_vacancies_in_page(short_vacancies)
+        vacancies_count_after_adding = cvc.check_vacancies_table()[1]
+        vacancies_added_today_count = vacancies_count_after_adding - vacancies_count_before_adding
+        cvc.save_vacancies_count_to_db(vacancies_added_today_count, vacancies_count_after_adding)
+        print(f'Today added {vacancies_added_today_count} vacancies. Total {vacancies_count_after_adding} vacancies')
         print('Vacancies parser completed')
