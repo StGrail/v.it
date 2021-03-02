@@ -14,9 +14,10 @@ PROCESSING_SKILLS = [
 ]
 # Список для отбраковки вакансий по названию (с кириллическим вариантом "с")
 NOT_PYTHON = [
-    'c++', 'с++', 'unity', 'c', 'с', 'с#', 'c#', 'recruiter', 'sql', 'devops', 'ruby', 'voip', 'bim', 'php', 'js', 'hr', 'flutter',
-    'android', 'ios', 'go', 'hadoop', 'rust', 'java', '.net', 'fiori', 'преподаватель',
+    'c++', 'с++', 'unity', 'c', 'с', 'с#', 'c#', 'recruiter', 'sql', 'devops', 'ruby', 'voip', 'bim', 'php',
+    'js', 'hr', 'flutter', 'android', 'ios', 'go', 'hadoop', 'rust', 'java', '.net', 'fiori', 'преподаватель',
 ]
+
 
 # Минимальная длинна скилла
 min_lenght_skill_letter = 0
