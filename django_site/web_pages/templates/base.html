@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+
 <html lang="ru">
 <head>
 
@@ -87,17 +88,16 @@
     </div>
 </main>
 
-<!--<footer class="footer static-bottom mt-auto bg-dark">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-4"></div>-->
-<!--            <div class="col-8">-->
-<!--                <span class="text-muted">Расположить контактную информацию.</span>-->
-<!--            </div>-->
-<!--            <div class="col-4"></div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
+<!--Footer-->
+<nav class="navbar-expand-lg sticky-bottom navbar-dark bg-dark">
+    <div class="container py-2">
+        <div class="mx-auto" style="width: 500px;">
+            Добавлено сегодня вакансий: {{ today }}
+            Всего вакансий: {{ total }}
+        </div>
+    </div>
+</nav>
+
 
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
@@ -115,6 +115,9 @@
             return this.href === location.href;
         }).addClass('active');
     });
+
+
+
 </script>
 </body>
 
