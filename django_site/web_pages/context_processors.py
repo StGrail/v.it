@@ -9,13 +9,13 @@ def vacancies_counter(request):
                                                                                        'total_vacancies_count')
         counter_today = qs_counter[0]['added_today']
         counter_total = qs_counter[0]['total_vacancies_count']
-        context = {
+        counter = {
             'today': counter_today,
             'total': counter_total
         }
-    except:
-        context = {
+    except TypeError:
+        counter = {
             'today': 0,
             'total': 0
         }
-    return context
+    return counter
