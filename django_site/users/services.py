@@ -25,7 +25,6 @@ def update_shown_vacancy_to_user(user_id: int, vacancies_list: 'Queryset'):
         vacancy = Vacancies.objects.get(id=vacancy['id'])
         vacancy.shown_to_users.add(user)
 
-
 def profile_view(user_request: 'Queryset') -> 'Queryset':
     """
     Функция, которая производит обработку данных пользователя и выборку из БД
@@ -36,8 +35,7 @@ def profile_view(user_request: 'Queryset') -> 'Queryset':
     experience = user_request[0]['experience']
     salary = user_request[0]['salary']
     without_salary = user_request[0]['without_salary']
-
-    if without_salary is False:
+    if not without_salary:
         vacancies_list = Vacancies.objects.filter(area=area,
                                                   experience=experience,
                                                   salary_from__lte=salary,
