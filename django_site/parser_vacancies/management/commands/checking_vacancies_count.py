@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.db.utils import IntegrityError
 from vacancies.models import Vacancies
 from parser_vacancies.models import Vacancies_count
 from parser_vacancies.management.commands import config_parser
@@ -27,9 +28,17 @@ def save_vacancies_count_to_db(added_today: int, total_vacancies_count: int):
     парсера, дату включения, а также общее количество вакансий в БД
     """
     row_vacancies_count = Vacancies_count(
-        date=date.today(),
         added_today=added_today,
         total_vacancies_count=total_vacancies_count
     )
-    row_vacancies_count.save()
+    try:
+        row_vacancies_count.save()
+    except IntegrityError:
+        vacancies_count = Vacancies_count.objects.get(date=date.today())
+        vacancies_count.added_today += added_today
+        vacancies_count.total_vacancies_count = total_vacancies_count
+        added_today = vacancies_count.added_today
+        vacancies_count.save(update_fields=['added_today', 'total_vacancies_count'])
+    print(f'Today added {added_today} vacancies. Total {total_vacancies_count} vacancies')
+
 
