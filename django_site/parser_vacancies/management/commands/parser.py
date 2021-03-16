@@ -151,15 +151,14 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         """Функция, запускающая парсер"""
         print('Start vacancies parser')
-        url_to_parser, vacancies_count_before_adding = cvc.check_vacancies_table()
+        url_to_parser, vacancies_count_before_parsing = cvc.check_vacancies_table()
         for page in range(config_parser.REQUEST_PAGE_COUNT):
             print(f'Used query: {url_to_parser}{page}')
             short_vacancies = self.get_request_data(f'{url_to_parser}{page}')
             if not short_vacancies['items']:
                 break
             self.processing_vacancies_in_page(short_vacancies)
-        vacancies_count_after_adding = cvc.check_vacancies_table()[1]
-        vacancies_added_today_count = vacancies_count_after_adding - vacancies_count_before_adding
-        cvc.save_vacancies_count_to_db(vacancies_added_today_count, vacancies_count_after_adding)
-        print(f'Today added {vacancies_added_today_count} vacancies. Total {vacancies_count_after_adding} vacancies')
+        vacancies_count_after_parsing = cvc.check_vacancies_table()[1]
+        vacancies_added_today_count = vacancies_count_after_parsing - vacancies_count_before_parsing
+        cvc.save_vacancies_count_to_db(vacancies_added_today_count, vacancies_count_after_parsing)
         print('Vacancies parser completed')

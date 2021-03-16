@@ -62,7 +62,6 @@ class EditProfile(View):
 @login_required
 def profile(request):
     """ Профиль юзера с выводом вакансий для него."""
-
     user_request = User.objects.filter(email=request.user).values('id',
                                                                   'area',
                                                                   'salary',
@@ -73,11 +72,9 @@ def profile(request):
     vacancies_list, recommended_vacancies = profile_view(user_request)
     page_number = request.GET.get('page')
     vacancies = pagination(vacancies_list, page_number)
-
     for item in vacancies_list:
         rating_qs = Rating.objects.filter(user=request.user.id, vacancy=item['id']).values('rating')
         item["rating"] = rating_qs[0]['rating'] if rating_qs else 0
-
     context = {
         'title': 'Your profile',
         'vacancies': vacancies,

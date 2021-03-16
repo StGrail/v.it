@@ -16,6 +16,8 @@ PROCESSING_SKILLS = [
 NOT_PYTHON = [
     'c++', 'с++', 'unity', 'c', 'с', 'с#', 'c#', 'recruiter', 'sql', 'devops', 'ruby', 'voip', 'bim', 'php',
     'js', 'hr', 'flutter', 'android', 'ios', 'go', 'hadoop', 'rust', 'java', '.net', 'fiori', 'преподаватель',
+    'frontend', 'администратор', 'penetration', 'специалист', 'goland', 'manager', 'менеджер', 'ассистент',
+    'руководитель', 'директор', 'javascript', 'react', 'etl', 'front', 'nodejs'
 ]
 
 
