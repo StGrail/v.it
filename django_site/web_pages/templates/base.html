@@ -28,7 +28,7 @@
     {% endif %}
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <!-- Navigation -->
 <header class="site-header">
@@ -89,14 +89,16 @@
 </main>
 
 <!--Footer-->
-<nav class="navbar-expand-lg sticky-bottom navbar-dark bg-dark">
+<footer class="navbar-expand-lg sticky-bottom navbar-dark bg-dark mt-auto">
     <div class="container py-2">
         <div class="mx-auto" style="width: 500px;">
             Добавлено сегодня вакансий: {{ today }}
             Всего вакансий: {{ total }}
         </div>
     </div>
-</nav>
+</footer>
+
+<!--<footer class="sticky-bottom mt-auto bg-dark">FOOTER</footer>-->
 
 
 <!-- Bootstrap core JavaScript -->
