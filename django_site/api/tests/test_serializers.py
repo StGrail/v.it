@@ -1,27 +1,47 @@
 from django.test import TestCase
 
-from api.serializers import UsersSerializer
-from users.models import User
+from api.serializers import VacanciesSerializer
+from vacancies.models import Vacancies
 
 
-# class UsersSerializerTestCase(TestCase):
-#     def test_is_ok(self):
-#         """ Поменять пароль на другие данные и сравнить, тк хэш """
-#
-#         user_1 = User.objects.create_user(email='user_1@bar.com', password='foobar')
-#         user_2 = User.objects.create_user(email='user_2@bar.com', password='foobar')
-#         data = UsersSerializer([user_1, user_2], many=True).data
-#         expected_data = [
-#             {
-#                 'id': user_1.id,
-#                 'email': 'user_1@bar.com',
-#                 'password': 'foobar'
-#             },
-#             {
-#                 'id': user_2.id,
-#                 'email': 'user_2@bar.com',
-#                 'password': 'foobar'
-#             },
-#
-#         ]
-#         self.assertEqual(expected_data, data)
+class VacanciesSerializerTestCase(TestCase):
+    def test_vacancies(self):
+        """ Тестируем  """
+
+        vacancy_1 = Vacancies.objects.create(
+            id_vacancy=1, name='PythonDev1', area='Москва', experience='от 1 года до 3 лет',
+            salary_from='0', salary_to='100000', url='PythonDev1.com', published='2021-02-25T17:26:17+03:00',
+            contains_skills=False
+        )
+        vacancy_2 = Vacancies.objects.create(
+            id_vacancy=2, name='PythonDev2', area='Москва', experience='от 1 года до 3 лет',
+            salary_from='0', salary_to='100000', url='PythonDev2.com', published='2021-02-25T17:26:17+03:00',
+            contains_skills=False
+        )
+        data = VacanciesSerializer([vacancy_1, vacancy_2], many=True).data
+        expected_data = [
+            {
+                "id_vacancy": vacancy_1.id,
+                "name": 'PythonDev1',
+                "area": 'Москва',
+                "experience": "от 1 года до 3 лет",
+                "salary_from": "0",
+                "salary_to": "100000",
+                "url": 'PythonDev1.com',
+                "published": "2021-02-25T17:26:17+03:00",
+                "contains_skills": False
+            },
+            {
+                "id_vacancy": vacancy_2.id,
+                "name": 'PythonDev2',
+                "area": 'Москва',
+                "experience": "от 1 года до 3 лет",
+                "salary_from": "0",
+                "salary_to": "100000",
+                "url": 'PythonDev2.com',
+                "published": "2021-02-25T17:26:17+03:00",
+                "contains_skills": False
+            },
+
+        ]
+        self.assertEqual(expected_data, data)

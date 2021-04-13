@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from vacancies.models import Vacancies, Rating
 
+from vacancies.models import Vacancies, Rating
 from .forms import UserCreationForm, UserChangeForm
 from .models import User
 from .services import profile_view, remove_user_from_vacancy_relation, pagination, stars_rating
@@ -61,7 +61,7 @@ class EditProfile(View):
 
 @login_required
 def profile(request):
-    """ Профиль юзера с выводом вакансий для него."""
+    """ Профиль юзера с выводом вакансий для него. """
 
     user_request = User.objects.filter(email=request.user).values('id',
                                                                   'area',
@@ -90,7 +90,7 @@ def profile(request):
 @require_http_methods(["POST"])
 @csrf_exempt
 def rate_vacancy(request):
-    """ Оценка вакансии пользователем """
+    """ Оценка вакансии пользователем. """
 
     rating = request.POST.get('rate')
     vacancy = Vacancies.objects.get(pk=request.POST.get('vacancy'))

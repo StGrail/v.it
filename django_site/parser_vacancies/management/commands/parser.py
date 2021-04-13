@@ -23,7 +23,6 @@ class Command(BaseCommand):
             print('Network error')
         return json.loads(answer_hh.text)
 
-
     def check_vacancies_table(self):
         vacancies_count = Vacancies.objects.filter().count()
         if vacancies_count:
@@ -33,7 +32,6 @@ class Command(BaseCommand):
         print('Database is empty')
         url_to_parser = config_parser.REQUEST_URL
         return url_to_parser
-
 
     def get_vacancy_data(self, id_vacancy: int, vacancy: dict, contains_skills: bool) -> dict:
         """

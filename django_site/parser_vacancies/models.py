@@ -31,7 +31,7 @@ class Skills(models.Model):
     def __repr__(self):
         return self.id_vacancy
 
-    
+
 class Vacancies_count(models.Model):
     date = models.DateField(unique=True, null=True)
     added_today = models.IntegerField(null=True)
