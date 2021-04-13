@@ -13,7 +13,7 @@ def vacancies_counter(request):
             'today': counter_today,
             'total': counter_total
         }
-    except TypeError:
+    except (SyntaxError, IndexError, TypeError):
         counter = {
             'today': 0,
             'total': 0
