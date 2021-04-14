@@ -15,7 +15,7 @@ def home(request):
         'redirect': redirect,
         'button': button_name,
     }
-    return render(request, 'home.html', context)
+    return render(request, 'users/home.html', context)
 
 
 def contacts(request):
@@ -23,4 +23,4 @@ def contacts(request):
         'title': 'Contacts',
         'headline': 'Contacts',
     }
-    return render(request, 'contacts.html', context)
+    return render(request, 'users/contacts.html', context)
