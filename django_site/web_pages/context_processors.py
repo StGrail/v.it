@@ -14,7 +14,7 @@ def vacancies_counter(request):
             'total': counter_total
         }
     except (SyntaxError, IndexError, TypeError) as e:
-        print(e)
+        print(f'Счетчик вакансий - {e}')
         counter = {
             'today': 0,
             'total': 0
