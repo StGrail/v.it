@@ -1,0 +1,34 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="col-lg-4 col-md-3 col-xs-6 offset-md-4">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">
+                <fieldset class="form-group text-center">
+                    <legend class="text-center border-bottom mb-3">Авторизация</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group text-center">
+                    <button class="btn btn-outline-dark" type="submit">Войти</button>
+                    <small class="text-muted ml-2">
+                        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                    </small>
+                </div>
+                <div class="border-top pt-1 text-center">
+                    <small class="text-muted">
+                        Нет аккаунта? <a class="ml-1" href="{% url 'join' %}">Регистрация</a>
+                    </small>
+                </div>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

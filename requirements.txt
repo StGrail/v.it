@@ -12,6 +12,8 @@ django-redis-cache==3.0.0
 idna==2.10
 psycopg2-binary==2.8.6
 pytz==2020.5
+pytest==6.2.3
+pytest-django==4.2.0
 requests==2.25.0
 soupsieve==2.1
 sqlparse==0.4.1
