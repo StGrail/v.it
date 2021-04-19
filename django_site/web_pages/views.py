@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 
 
 class HomeView(View):
-    template_name = 'users/home.html'
+    template_name = 'web_pages/home.html'
 
     def get(self, request):
         user = request.user
@@ -24,7 +24,7 @@ class HomeView(View):
 
 
 class ContactsView(TemplateView):
-    template_name = 'users/contacts.html'
+    template_name = 'web_pages/contacts.html'
 
     def get_context_data(self, **kwargs):
         context = {
