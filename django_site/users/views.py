@@ -16,7 +16,7 @@ class JoinForm(View):
     """ Регистрации юзера с последующим редиректом на страницу логина. """
 
     form_class = UserCreationForm
-    template_name = 'join.html'
+    template_name = 'web_pages/join.html'
 
     def get(self, request):
         form = self.form_class()
@@ -38,7 +38,7 @@ class EditProfile(View):
     """ Изменение данных профиля в лк. """
 
     form_class = UserChangeForm
-    template_name = 'edit_profile.html'
+    template_name = 'web_pages/edit_profile.html'
 
     def get(self, request):
         form = self.form_class(instance=request.user)
@@ -83,7 +83,7 @@ def profile(request):
         'vacancies': vacancies,
         'recommended_vacancies': recommended_vacancies,
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'web_pages/profile.html', context)
 
 
 @login_required

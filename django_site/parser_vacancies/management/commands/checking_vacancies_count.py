@@ -1,7 +1,7 @@
 from datetime import date
 
 from vacancies.models import Vacancies
-from parser_vacancies.models import Vacancies_count
+from parser_vacancies.models import VacanciesCount
 from parser_vacancies.management.commands import config_parser
 
 
@@ -16,7 +16,7 @@ def check_vacancies_table():
 
 
 def save_vacancies_count_to_db(added_today, total_vacancies_count):
-    row_vacancies_count = Vacancies_count(
+    row_vacancies_count = VacanciesCount(
         date=date.today(),
         added_today=added_today,
         total_vacancies_count=total_vacancies_count

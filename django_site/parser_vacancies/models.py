@@ -32,7 +32,7 @@ class Skills(models.Model):
         return self.id_vacancy
 
 
-class Vacancies_count(models.Model):
+class VacanciesCount(models.Model):
     date = models.DateField(unique=True, null=True)
     added_today = models.IntegerField(null=True)
     total_vacancies_count = models.IntegerField(null=True)
