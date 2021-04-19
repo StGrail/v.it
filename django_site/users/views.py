@@ -61,7 +61,7 @@ class EditProfile(View):
 
 @login_required
 def profile(request):
-    """ Профиль юзера с выводом вакансий для него."""
+    """ Профиль юзера с выводом вакансий для него. """
 
     user_request = User.objects.filter(email=request.user).values('id',
                                                                   'area',
@@ -90,7 +90,7 @@ def profile(request):
 @require_http_methods(["POST"])
 @csrf_exempt
 def rate_vacancy(request):
-    """ Оценка вакансии пользователем """
+    """ Оценка вакансии пользователем. """
 
     rating = request.POST.get('rate')
     vacancy = Vacancies.objects.get(pk=request.POST.get('vacancy'))

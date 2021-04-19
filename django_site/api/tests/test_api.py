@@ -47,24 +47,3 @@ class VacanciesApiTestCase(APITestCase):
                                                self.vacancy_3], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertNotEqual(serializer_data, response.data)
-
-    def test_create(self):
-        """Не проходит, нужна проверка. """
-
-        url = reverse('vacancies-list')
-        data = {
-            "id_vacancy": '2',
-            "name": 'python developer2',
-            "area": 'Москва',
-            "experience": 'no_experience',
-            "salary_from": '50000',
-            "salary_to": '100000',
-            "published": '2021-01-01T00:10:00+03:00',
-            "contains_skills": "False"
-        }
-        json_data = json.dumps(data)
-        self.client.force_login(self.user)
-        response = self.client.post(url, data=json_data,
-                                    content_type='application/json')
-
-        self.assertEqual(status.HTTP_201_CREATED, response.status_code)

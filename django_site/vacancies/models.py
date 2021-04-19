@@ -9,7 +9,7 @@ class Vacancies(models.Model):
 
     shown_to_users = models.ManyToManyField(User, related_name='shown_vacancies')
     banned_by_users = models.ManyToManyField(User, related_name='banned_vacancies')
-    id_vacancy = models.CharField(max_length=100, unique=True, blank=True)
+    id_vacancy = models.BigIntegerField(unique=True, blank=True)
     name = models.CharField(max_length=100, blank=True)
     area = models.CharField(max_length=100, blank=True)
     experience = models.CharField(max_length=100, blank=True)

@@ -4,9 +4,8 @@ from django.contrib.auth import get_user_model
 
 class UsersManagersTests(TestCase):
     def test_create_user(self):
-        '''
-        Тестирование создания юзера.
-        '''
+        """ Тестирование создания юзера. """
+
         User = get_user_model()
         user = User.objects.create_user(email='normal@user.com', password='foo')
         self.assertEqual(user.email, 'normal@user.com')
@@ -14,8 +13,7 @@ class UsersManagersTests(TestCase):
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
         try:
-            # username is None for the AbstractUser option
-            # username does not exist for the AbstractBaseUser option
+            # username is None
             self.assertIsNone(user.username)
         except AttributeError:
             pass
@@ -27,7 +25,8 @@ class UsersManagersTests(TestCase):
             User.objects.create_user(email='', password="foo")
 
     def test_create_superuser(self):
-        ''' Тестирование создания админа.'''
+        """ Тестирование создания админа."""
+
         User = get_user_model()
         admin_user = User.objects.create_superuser('super@user.com', 'foo')
         self.assertEqual(admin_user.email, 'super@user.com')
@@ -35,8 +34,6 @@ class UsersManagersTests(TestCase):
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
         try:
-            # username is None for the AbstractUser option
-            # username does not exist for the AbstractBaseUser option
             self.assertIsNone(admin_user.username)
         except AttributeError:
             pass

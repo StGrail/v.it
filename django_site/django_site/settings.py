@@ -86,6 +86,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'web_pages.context_processors.vacancies_counter',
             ],
         },
     },
@@ -163,8 +165,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Social auth
-SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Email credentials
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
