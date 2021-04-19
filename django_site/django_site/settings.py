@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
+import django_heroku
 
 load_dotenv()
 
@@ -29,7 +31,7 @@ SECRET_KEY = str(os.getenv('DJANGO_SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG_MODE')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
+    'whitenoise.runserver_nostatic',
 
     'web_pages',
     'users',
@@ -61,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -100,7 +105,7 @@ DATABASES = {
         'USER': str(os.getenv('PG_USER')),
         'PASSWORD': str(os.getenv('PG_PASSWORD')),
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': 5432,
     }
 }
 
@@ -140,6 +145,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# WHITENOISE_USE_FINDERS = True
+# Пробую запустить статику на хероку
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = 'home'
@@ -147,7 +156,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 # DRF json only
-
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -159,7 +167,6 @@ REST_FRAMEWORK = {
 
 
 # Email credentials
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_PORT = 587
@@ -167,3 +174,25 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+# Celery
+CELERY_BROKER_URL = str(os.getenv('REDIS_URL'))
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": str(os.getenv('REDIS_URL')),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_ENTRIES": 1000
+        },
+    }
+}

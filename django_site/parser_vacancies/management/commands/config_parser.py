@@ -18,7 +18,6 @@ NOT_PYTHON = [
     'js', 'hr', 'flutter', 'android', 'ios', 'go', 'hadoop', 'rust', 'java', '.net', 'fiori', 'преподаватель',
 ]
 
-
 # Минимальная длинна скилла
 min_lenght_skill_letter = 0
 for letter in PROCESSING_SKILLS:
