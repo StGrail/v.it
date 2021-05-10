@@ -1,0 +1,106 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Left block with user's info -->
+<div class="col-lg-3 col-md-3 col-xs-6 order-1">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Ваши данные:</h5>
+            <p class="card-text">
+                Email: {{ user.email }}<br>
+                Город поиска: {{ user.area }}<br>
+                Опыт работы: {{ user.experience }}<br>
+            </p>
+            <div class="text-center">
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'edit_profile' %}">Изменить данные</a>
+            </div>
+        </div>
+    </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted">
+                    Если вакансия совсем не подходит под Ваши критерии, то ставьте одну звездочку и больше Вы ее
+                    больше
+                    не увидите.
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Middle block with list of vacancies -->
+<div class="col-lg-5 col-md-3 col-xs-6 order-2">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Вакансии по вашему запросу:</h5>
+            <p class="card-text">
+                {% for vacancy in vacancies %}
+                <!--data-clearable-icon="fa-trash-o" добавить ведро для бана-->
+            <p>{{ forloop.counter }}. {{ vacancy.name }} <br/><input type="number" name="rating" id="{{ vacancy.id }}"
+                                                                     class="rating" data-clearable="" data-icon-lib="fa"
+                                                                     data-active-icon="fa-star"
+                                                                     data-inactive-icon="fa-star-o" data-inline
+                                                                     value="{{ vacancy.rating }}"/><br/>
+                <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a></p>
+            {% empty %}
+            <p>Скоро тут будет список вакансий для Вас!</p>
+            {% endfor %}
+
+            <!-- Pagination -->
+            {% if vacancies.paginator.num_pages > 1 %}
+            <div class="pagination justify-content-center">
+                {% if vacancies.has_previous %}
+                <a class="btn btn-outline-dark btn-sm" href="?page=1">&laquo;</a>
+                <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.previous_page_number }}">&larr;</a>
+                {% endif %}
+
+                {% for num in vacancies.paginator.page_range %}
+                {% if vacancies.number == num %}
+                <a class="btn btn-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > vacancies.number|add:'-3' and num < vacancies.number|add:'3' %}
+                <a class="btn btn-outline-dark btn-sm" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if vacancies.has_next %}
+                <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.next_page_number }}">&rarr;</a>
+                <a class="btn btn-outline-dark btn-sm" href="?page={{ vacancies.paginator.num_pages }}">&raquo;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Right block with recommended vacancies -->
+<div class="col-lg-4 col-md-3 col-xs-6 order-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Рекомендуемые вакансии:</h5>
+            <p class="card-text">
+                {% for vacancy in recommended_vacancies %}
+                {{ forloop.counter }}. {{ vacancy.name }}
+                <a href="{{ vacancy.url }}" target="_blank" rel="noopener noreferrer">{{ vacancy.url }}</a><br>
+                {% empty %}
+                Укажите дополнительные технологии, с которыми у Вас есть опыт работы и мы сможем подобрать схожие
+                вакансии.
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted">
+                    Оценивая вакансию, вы помогаете находить для Вас наиболее подходящие вакансии.
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

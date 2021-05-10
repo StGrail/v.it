@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath django_site core.wsgi --log-file -
